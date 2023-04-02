@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom'
 const socket = io('http://localhost:8000')
 
 
+
 const Call = () => {
 
 
@@ -18,16 +19,10 @@ const Call = () => {
     socket.emit("join_call", callId)
   }, [])
 
-  // useEffect(() => {
-  //   // @ts-ignore
-  //   socket.on("receive_message", 'test message receive')
-  // }, [socket])
 
 const sendMessage = () => {
   if(message){
     socket.emit("send_message", { message: message, sender: socket.id, roomId: callId})
-        // @ts-ignore
-    // setChat((oldChat: Array<string>) => [...oldChat, message])
     setMessage('')
   } else{
     console.log("Chat cannot be blank")
@@ -35,12 +30,14 @@ const sendMessage = () => {
   
 }
 
+// Duplication glitch occurs when putting setChat in the receive message useEffect
+
 useEffect(() => {
-socket.on("receive_message", (data: string) => {
-console.log('received message')
-// @ts-ignore
-setChat((oldChat: Array<string>) => [...oldChat, data])
-})
+
+  socket.on("receive_message", (data: object) => {
+    // @ts-ignore 
+    setChat((oldChat: Array<string>) => [...oldChat, data])
+    })
 
 }, [socket])
 
@@ -60,8 +57,8 @@ setChat((oldChat: Array<string>) => [...oldChat, data])
       <div className='w-1/3 h-screen bg-blue-50'>
         <div><h1 className='text-lg font-bold'>Chat</h1></div>
         <div>
-          {chat.map((chatMsg: any) => 
-            <div>
+          {chat.map((chatMsg: any, index: any) => 
+            <div key={index}>
               <h1>{chatMsg?.message}</h1>
               <h1>Sent by: {chatMsg?.sender}</h1>
             </div>

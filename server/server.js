@@ -37,8 +37,7 @@ io.on('connection', (socket) => {
   })
 
 socket.on("send_message", (data) => {
-  // Do stuff with data here if necessary
-    socket.to(data.roomId).emit("receive_message", { message: data.message,
+    io.in(data.roomId).emit("receive_message", { message: data.message,
     sender: socket.id})
   })
 
