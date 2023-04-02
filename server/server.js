@@ -22,8 +22,6 @@ app.get('/', (req, res) => {
 
 io.on('connection', (socket) => {
   console.log(socket.id + ' connected')
-
-
   socket.on("join_call", (data) => {
     if(!socket.rooms.hasOwnProperty(data)){
       socket.join(data)
@@ -32,28 +30,24 @@ io.on('connection', (socket) => {
       console.log(`User with ID: ${socket.id} is already in the room ${data}`)
     }
 
-
   })
 
   socket.on("leave_call", (data) => {
 
   })
 
-  socket.on("send_message", (data) => {
-    socket.to(data.room).emit("receive_message", data)
-    console.log(data)
+socket.on("send_message", (data) => {
+  // Do stuff with data here if necessary
+    socket.to(data.roomId).emit("receive_message", { message: data.message,
+    sender: socket.id})
   })
 
-  socket.on("receive_message", (data) => {
-  
-  })
 
   socket.on('disconnect', (socket) => {
     console.log(`${socket.id} disconnected`)
   })
 
 })
-
 
 
 httpServer.listen(PORT, (error) => {

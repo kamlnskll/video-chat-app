@@ -1,20 +1,50 @@
 import React, { useEffect, useState } from 'react'
 import { io } from 'socket.io-client'
+import { useParams } from 'react-router-dom'
+
+const socket = io('http://localhost:8000')
+
 
 const Call = () => {
 
-  const socket = io('http://localhost:8000')
-  const [callMessages, setCallMessages] = useState([])
+
+  const { callId } = useParams()
+  const [chat, setChat] = useState([])
+  const [message, setMessage] = useState('')
+  
 
   // This socket emits the event that we have joined the specific call with the specific callID (in this case it is hardcoded to 123 but will be dynamic)
   useEffect(() => {
-    socket.emit("join_call", '123')
+    socket.emit("join_call", callId)
   }, [])
 
+  // useEffect(() => {
+  //   // @ts-ignore
+  //   socket.on("receive_message", 'test message receive')
+  // }, [socket])
 
 const sendMessage = () => {
-  socket.emit("send_message", callMessages)
+  if(message){
+    socket.emit("send_message", { message: message, sender: socket.id, roomId: callId})
+        // @ts-ignore
+    // setChat((oldChat: Array<string>) => [...oldChat, message])
+    setMessage('')
+  } else{
+    console.log("Chat cannot be blank")
+  }
+  
 }
+
+useEffect(() => {
+socket.on("receive_message", (data: string) => {
+console.log('received message')
+// @ts-ignore
+setChat((oldChat: Array<string>) => [...oldChat, data])
+})
+
+}, [socket])
+
+
 
 
   return (
@@ -29,9 +59,16 @@ const sendMessage = () => {
       </div>
       <div className='w-1/3 h-screen bg-blue-50'>
         <div><h1 className='text-lg font-bold'>Chat</h1></div>
-        <div>Chat messages go here</div>
+        <div>
+          {chat.map((chatMsg: any) => 
+            <div>
+              <h1>{chatMsg?.message}</h1>
+              <h1>Sent by: {chatMsg?.sender}</h1>
+            </div>
+        )}
+        </div>
         <div className='flex gap-2'>
-          <input type="text" placeholder="Chat here" onChange={(e: any) => setCallMessages(e.target.value)}/>
+          <input type="text" placeholder="Chat here" value={message} onChange={(e: any) => setMessage(e.target.value)}/>
           <button type='button' className='bg-sky-200' onClick={sendMessage}>Submit</button>
         </div>
         
