@@ -3,10 +3,14 @@ import Navbar from '../components/Navbar'
 import dayjs from 'dayjs'
 import JoinCall from '../components/JoinCall'
 import Calendar from 'react-calendar'
+import { useNavigate } from 'react-router-dom'
+import { v4 as uuid } from 'uuid'
 
 const Dashboard = () => {
   const time = dayjs().format('h:mm')
   const date = dayjs().format('dddd, MMMM DD, YYYY')
+  const navigate = useNavigate()
+  let uuidv4: string = uuid()
 
   return (
     <div>
@@ -15,7 +19,7 @@ const Dashboard = () => {
       </div>
       <div className='flex w-2/3 mx-auto justify-around mt-12'>
         <div className='grid grid-cols-2 grid-rows-2 bg-gray-100 rounded-lg'>
-          <div className='col-span-1 row-span-1 bg-orange-400 m-2 rounded-xl border border-slate-400 cursor-pointer hover:bg-orange-500'>
+          <div className='col-span-1 row-span-1 bg-orange-400 m-2 rounded-xl border border-slate-400 cursor-pointer hover:bg-orange-500' onClick={() => navigate(`/call/${uuidv4}`)}>
             <svg />
             <h1 className='text-white text-center font-bold text-xl'>
               New call
