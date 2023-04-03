@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Navbar from '../components/Navbar'
 import dayjs from 'dayjs'
 import JoinCall from '../components/JoinCall'
@@ -7,17 +7,25 @@ import { useNavigate } from 'react-router-dom'
 import { v4 as uuid } from 'uuid'
 
 const Dashboard = () => {
+
   const time = dayjs().format('h:mm')
   const date = dayjs().format('dddd, MMMM DD, YYYY')
   const navigate = useNavigate()
   let uuidv4: string = uuid()
+  const [toggleJoinCall, setToggleJoinCall] = useState(false)
+  
+const handleJoinCallModalToggle = (boolean: any) => {
+  setToggleJoinCall(boolean)
+}
+
 
   return (
     <div>
       <div>
         <Navbar />
       </div>
-      <div className='flex w-2/3 mx-auto justify-around mt-12'>
+      <div className='flex w-2/3 mx-auto justify-around mt-12 relative'>
+        <div className='absolute z-10 top-1/3'><JoinCall isOpen={toggleJoinCall} toggleFunction={handleJoinCallModalToggle}/></div>
         <div className='grid grid-cols-2 grid-rows-2 bg-gray-100 rounded-lg'>
           <div className='col-span-1 row-span-1 bg-orange-400 m-2 rounded-xl border border-slate-400 cursor-pointer hover:bg-orange-500' onClick={() => navigate(`/call/${uuidv4}`)}>
             <svg />
@@ -25,7 +33,7 @@ const Dashboard = () => {
               New call
             </h1>
           </div>
-          <div className='col-span-1 row-span-1 hover:bg-blue-700 bg-blue-600 m-2 rounded-xl border border-slate-400 cursor-pointer'>
+          <div className='col-span-1 row-span-1 hover:bg-blue-700 bg-blue-600 m-2 rounded-xl border border-slate-400 cursor-pointer' onClick={() => {setToggleJoinCall(!toggleJoinCall)}}>
             <svg />
             <h1 className='text-white text-center font-bold text-xl'>
               Join a call
