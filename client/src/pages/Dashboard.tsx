@@ -15,25 +15,25 @@ const Dashboard = () => {
       </div>
       <div className='flex w-2/3 mx-auto justify-around mt-12'>
         <div className='grid grid-cols-2 grid-rows-2 bg-gray-100 rounded-lg'>
-          <div className='col-span-1 row-span-1 bg-orange-400 m-2 rounded-xl border border-slate-400'>
+          <div className='col-span-1 row-span-1 bg-orange-400 m-2 rounded-xl border border-slate-400 cursor-pointer hover:bg-orange-500'>
+            <svg />
+            <h1 className='text-white text-center font-bold text-xl'>
+              New call
+            </h1>
+          </div>
+          <div className='col-span-1 row-span-1 hover:bg-blue-700 bg-blue-600 m-2 rounded-xl border border-slate-400 cursor-pointer'>
+            <svg />
+            <h1 className='text-white text-center font-bold text-xl'>
+              Join a call
+            </h1>
+          </div>
+          <div className='col-span-1 row-span-1 hover:bg-blue-700 bg-blue-600 m-2 rounded-xl border border-slate-400'>
             <svg />
             <h1 className='text-white text-center font-bold text-xl'>
               Start a call
             </h1>
           </div>
-          <div className='col-span-1 row-span-1 bg-blue-600 m-2 rounded-xl border border-slate-400'>
-            <svg />
-            <h1 className='text-white text-center font-bold text-xl'>
-              Start a call
-            </h1>
-          </div>
-          <div className='col-span-1 row-span-1 bg-blue-600 m-2 rounded-xl border border-slate-400'>
-            <svg />
-            <h1 className='text-white text-center font-bold text-xl'>
-              Start a call
-            </h1>
-          </div>
-          <div className='col-span-1 row-span-1 bg-blue-600 m-2 rounded-xl border border-slate-400'>
+          <div className='col-span-1 row-span-1 hover:bg-blue-700 bg-blue-600 m-2 rounded-xl border border-slate-400'>
             <svg />
             <h1 className='text-white text-center font-bold text-xl'>
               Start a call
@@ -48,7 +48,7 @@ const Dashboard = () => {
                 src={
                   'https://img.freepik.com/free-vector/halftone-background-abstract-black-white-dots-shape_314614-1558.jpg?w=2000'
                 }
-                className='w-[412px] object-contain border-4'
+                className='w-full h-[275px] object-contain'
               />
               <div className='absolute top-1/3 left-1/3'>
                 <h1 className='text-5xl text-center'>{time}</h1>
