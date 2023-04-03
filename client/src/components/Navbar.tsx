@@ -8,15 +8,15 @@ const Navbar = () => {
         <Link to={'/'} type='button' className='hover:text-blue-700'>
           Home
         </Link>
-        <button type='button' className='hover:text-blue-700'>
+        <Link to={'/chat'} type='button' className='hover:text-blue-700'>
           Chat
-        </button>
-        <button type='button' className='hover:text-blue-700'>
+        </Link>
+        <Link to={'/contacts'} type='button' className='hover:text-blue-700'>
           Contacts
-        </button>
-        <button type='button' className='hover:text-blue-700'>
+        </Link>
+        <Link to={'/profile'} type='button' className='hover:text-blue-700'>
           Profile
-        </button>
+        </Link>
         <button type='button' className='hover:text-blue-700'>
           Settings
         </button>
