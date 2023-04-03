@@ -2,6 +2,7 @@ import express from 'express'
 import http from 'http'
 import { Server } from 'socket.io'
 import cors from 'cors'
+import userRoutes from './routes/user'
 
 const app = express()
 const httpServer = http.createServer(app)
@@ -44,6 +45,11 @@ io.on('connection', (socket) => {
     console.log(`${socket.id} disconnected`)
   })
 })
+
+
+// API Routes
+
+app.use('/api/user', userRoutes)
 
 httpServer.listen(PORT, (error) => {
   if (!error) {
