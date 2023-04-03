@@ -22,32 +22,28 @@ app.get('/', (req, res) => {
 
 io.on('connection', (socket) => {
   console.log(socket.id + ' connected')
-  socket.on("join_call", (data) => {
-    if(!socket.rooms.hasOwnProperty(data)){
+  socket.on('join_call', (data) => {
+    if (!socket.rooms.hasOwnProperty(data)) {
       socket.join(data)
       console.log(`User with ID ${socket.id} has joined room: ${data}`)
-    } else{
+    } else {
       console.log(`User with ID: ${socket.id} is already in the room ${data}`)
     }
-
   })
 
-  socket.on("leave_call", (data) => {
+  socket.on('leave_call', (data) => {})
 
+  socket.on('send_message', (data) => {
+    io.in(data.roomId).emit('receive_message', {
+      message: data.message,
+      sender: socket.id,
+    })
   })
-
-socket.on("send_message", (data) => {
-    io.in(data.roomId).emit("receive_message", { message: data.message,
-    sender: socket.id})
-  })
-
 
   socket.on('disconnect', (socket) => {
     console.log(`${socket.id} disconnected`)
   })
-
 })
-
 
 httpServer.listen(PORT, (error) => {
   if (!error) {
