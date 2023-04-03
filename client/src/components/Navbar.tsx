@@ -17,9 +17,9 @@ const Navbar = () => {
         <Link to={'/profile'} type='button' className='hover:text-blue-700'>
           Profile
         </Link>
-        <button type='button' className='hover:text-blue-700'>
+        <Link to={'/settings'} type='button' className='hover:text-blue-700'>
           Settings
-        </button>
+        </Link>
       </div>
     </div>
   )
