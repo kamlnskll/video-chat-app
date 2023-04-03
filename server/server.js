@@ -2,7 +2,7 @@ import express from 'express'
 import http from 'http'
 import { Server } from 'socket.io'
 import cors from 'cors'
-import userRoutes from './routes/user'
+import userRoutes from './routes/user.js'
 
 const app = express()
 const httpServer = http.createServer(app)

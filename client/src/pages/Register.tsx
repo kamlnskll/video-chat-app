@@ -1,4 +1,5 @@
 import React, {useState} from 'react'
+import { registerNewUser } from '../axios/userRoutes'
 
 const Register = () => {
 
@@ -18,7 +19,7 @@ const [password, setPassword] = useState('')
       <input name="username" placeholder="Username" type="text" className='flex mx-auto w-3/4 h-[50px] outline-none text-sm pl-6 mb-4' onChange={(e) => setUserName(e.target.value)} />
       <input name="password" placeholder="Password" type="password" className='flex mx-auto w-3/4 h-[50px] outline-none text-sm pl-6' onChange={(e) => setPassword(e.target.value)}/>
       </div>
-      <button type='button' className='font-bold py-1 bg-blue-300 mx-auto w-3/4' onClick={() => console.log(userName, password)}>
+      <button type='button' className='font-bold py-1 bg-blue-300 mx-auto w-3/4' onClick={() => registerNewUser(firstName, lastName, email, userName, password).then((res) => console.log(res))}>
         Register
       </button>
       </div>
