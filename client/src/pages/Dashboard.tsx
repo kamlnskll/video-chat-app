@@ -2,6 +2,7 @@ import React from 'react'
 import Navbar from '../components/Navbar'
 import dayjs from 'dayjs'
 import JoinCall from '../components/JoinCall'
+import Calendar from 'react-calendar'
 
 const Dashboard = () => {
   const time = dayjs().format('h:mm')
@@ -55,7 +56,11 @@ const Dashboard = () => {
               </div>
             </div>
           </div>
-          <div className='h-[275px]'>Calendar</div>
+          <div className='h-[275px]'>
+            <div className='w-2/3 mx-auto text-center mt-5'>
+              <Calendar />
+            </div>
+          </div>
         </div>
       </div>
     </div>
