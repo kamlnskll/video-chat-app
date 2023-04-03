@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react'
+import { useNavigate } from 'react-router-dom'
 
 type Props = {
 isOpen: boolean
@@ -8,6 +9,7 @@ toggleFunction: any
 
 const JoinCall = ({isOpen, toggleFunction}: Props) => {
   const [callId, setCallId] = useState('')
+  const navigate = useNavigate()
 
   useEffect(() => {
     setCallId('')
@@ -24,7 +26,7 @@ const JoinCall = ({isOpen, toggleFunction}: Props) => {
   <button type='button' className='bg-orange-300' onClick={() => {
     toggleFunction(false)
   }}>Cancel</button>
-  <button type='button' className='bg-blue-600' onClick={() => {}}>Join</button>
+  <button type='button' className='bg-blue-600' onClick={() => {navigate(`/call/${callId}`)}}>Join</button>
   </div>
   </div>
 </div> : null }
