@@ -1,11 +1,17 @@
 import express from 'express'
+import * as dotenv from 'dotenv'
 import http from 'http'
 import { Server } from 'socket.io'
 import cors from 'cors'
 import userRoutes from './routes/user.js'
+import mongoose from 'mongoose'
+import bodyParser from 'body-parser'
 
 const app = express()
 const httpServer = http.createServer(app)
+dotenv.config()
+app.use(bodyParser.json()) // for parsing application/json
+app.use(bodyParser.urlencoded({ extended: true }))
 
 const io = new Server(httpServer, {
   cors: {
@@ -46,14 +52,23 @@ io.on('connection', (socket) => {
   })
 })
 
-
 // API Routes
 
 app.use('/api/user', userRoutes)
 
+const connectToMongoDB = async () => {
+  try {
+    await mongoose.connect(process.env.MONGO_CONNECTION)
+    console.log('Successfully connected to MongoDB cluster')
+  } catch (error) {
+    throw error
+  }
+}
+
 httpServer.listen(PORT, (error) => {
   if (!error) {
     console.log('HTTP server listening on port ' + PORT)
+    connectToMongoDB()
   } else {
     console.log('Error: Express server could NOT start.')
   }

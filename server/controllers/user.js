@@ -6,33 +6,33 @@ import { generateJWTAccessToken } from '../utils/auth.js'
 // Make sure all fields are full from req.body, then check to see if existing user is in DB. If not, create the new user.
 
 export const registerNewUser = async (req, res) => {
-  const { email, firstName, lastName, userName, password } = req.body
-  const checkIfUserEmailIsTaken = await User.find({ email })
-  const checkIfUserNameIsTaken = await User.find({ userName })
+  const { firstName, lastName, userName, email, password } = req.body
+  // const checkIfUserEmailIsTaken = await User.find({ email })
+  // const checkIfUserNameIsTaken = await User.find({ userName })
 
   if (!email || !firstName || !lastName || !userName || !password) {
     res.status(400)
     throw new Error('Please fill out all registration fields')
   }
 
-  if (checkIfUserEmailIsTaken) {
-    res.status(400)
-    throw new Error('Email address already in use.')
-  }
+  // if (checkIfUserEmailIsTaken) {
+  //   res.status(400)
+  //   throw new Error('Email address already in use.')
+  // }
 
-  if (checkIfUserNameIsTaken) {
-    res.status(400)
-    throw new Error('Username already in use.')
-  }
+  // if (checkIfUserNameIsTaken) {
+  //   res.status(400)
+  //   throw new Error('Username already in use.')
+  // }
 
   const salt = await bcrypt.genSalt(10)
   const hashedPassword = await bcrypt.hash(password, salt)
 
   const newUser = await User.create({
-    email,
     firstName,
     lastName,
     userName,
+    email,
     password: hashedPassword,
   })
 
