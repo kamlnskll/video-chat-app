@@ -1,7 +1,11 @@
 import React, { useState } from 'react'
 import { loginUser } from '../axios/userRoutes'
+import { useUserContext } from '../hooks/useUserContext'
 
 const Login = () => {
+  const { dispatch } = useUserContext()
+  const token = localStorage.getItem('token')
+
   const [userName, setUserName] = useState('')
   const [password, setPassword] = useState('')
 
@@ -27,9 +31,10 @@ const Login = () => {
         <button
           type='button'
           className='font-bold py-1 bg-blue-300 mx-auto w-3/4'
-          onClick={() =>
+          onClick={() => {
             loginUser(userName, password).then((res?: any) => console.log(res))
-          }
+            dispatch({ type: 'LOGIN', payload: token })
+          }}
         >
           Login Button
         </button>
