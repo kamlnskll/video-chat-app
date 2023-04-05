@@ -17,10 +17,7 @@ function App() {
     <div>
       <BrowserRouter>
         <Routes>
-          <Route
-            path='/'
-            element={user ? <Dashboard /> : <Navigate to='/login' />}
-          />
+          <Route path='/' element={<Dashboard />} />
           <Route path='/chat' element={<Chat />} />
           <Route path='/contacts' element={<Contacts />} />
           <Route path='/profile' element={<Profile />} />
