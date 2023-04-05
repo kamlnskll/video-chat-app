@@ -117,7 +117,7 @@ useEffect(() => {
       <div>
         <>
         {users.map((user: any) => {
-          <VideoContainer stream={user.stream}/>
+          <VideoContainer stream={stream}/>
         })
         
         }
