@@ -12,16 +12,17 @@ useEffect(() => {
     if (stream){
         //@ts-ignore
         videoRef.current.srcObject = stream
+        console.log('There is a stream')
     }
 }, [stream])
 
   return (
-    <div className=''>
+    <div className='w-full h-screen'>
         <video 
         ref={videoRef}
         autoPlay
         playsInline
-        className=''
+        className='w-[128px] h-[128px]'
         />
     </div>
   )

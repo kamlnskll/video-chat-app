@@ -22,6 +22,8 @@ useEffect(() => {
   peerRef.current = peer
   peer.on('open', () => {
     console.log(`Peer ${peer.id}`)
+    //@ts-ignore
+    socket.emit('user_join', (peer.id))
   })
 }, [])
 
@@ -97,6 +99,7 @@ useEffect(() => {
         roomId: callId,
       })
       setMessage('')
+      console.log(users)
     } else {
       console.log('Chat cannot be blank')
     }
