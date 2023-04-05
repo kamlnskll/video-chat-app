@@ -11,7 +11,7 @@ import Settings from './pages/Settings'
 import { useUserContext } from './hooks/useUserContext'
 
 function App() {
-  const { user } = useUserContext()
+  // const { user } = useUserContext()
 
   return (
     <div>

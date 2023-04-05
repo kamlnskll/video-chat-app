@@ -1,35 +1,93 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { io } from 'socket.io-client'
 import { useParams } from 'react-router-dom'
 import Peer from 'peerjs'
+import VideoContainer from '../components/VideoContainer'
 
-const socket = io('http://localhost:8000')
 const peer = new Peer()
-
-peer.on('open', function (id: string) {
-  navigator.mediaDevices
-    .getUserMedia({
-      video: true,
-      audio: true,
-    })
-    .then((stream) => {
-      const myStream = stream
-      let call = peer.call(id, stream)
-      call.on('stream', function (remoteStream: MediaStream) {
-        // addRemoteVideo(remoteStream)
-      })
-    })
-})
+const socket = io('http://localhost:8000')
 
 const Call = () => {
   const { callId } = useParams()
   const [chat, setChat] = useState([])
   const [message, setMessage] = useState('')
+  const peerRef = useRef()
+  const [stream, setStream] = useState()
+  const [users, setUsers] = useState([])
+
+// Generate PeerID for the user
+useEffect(() => {
+  const peer = new Peer()
+  //@ts-ignore
+  peerRef.current = peer
+  peer.on('open', () => {
+    console.log(`Peer ${peer.id}`)
+  })
+}, [])
 
   // This socket emits the event that we have joined the specific call with the specific callID (in this case it is hardcoded to 123 but will be dynamic)
   useEffect(() => {
     socket.emit('join_call', callId)
+    
+  // Create PeerJS connection with room
+  socket.on('user_join', (userId) => {
+    console.log(`User ${userId} has joined the room`)
+    //@ts-ignore
+    const conn = peerRef.current.connect(userId)
+    conn.on('open', () => {
+      console.log(`Connected to user ${userId}`)
+      conn.on('data', (data: any) => {
+        console.log(`Received data ${data}`)
+      })
+
+    const getUserMedia = navigator.mediaDevices.getUserMedia;
+    getUserMedia({video: true, audio: true}).then((myStream: MediaStream) => {
+      //@ts-ignore
+      setStream(myStream)
+      //@ts-ignore
+      conn.send(peerRef.current.id)
+      conn.on('stream', (remoteStream: MediaStream) => {
+              //@ts-ignore
+        setUsers((oldUsers) => [...oldUsers, {id: userId, stream: remoteStream}])
+      })
+    })
+    .catch((error) => {
+      console.log(error)
+    })
+    })
+  })
+
+
+  // Disconnect Peer connection when they leave room
+  socket.on('leave_room', (userId) => {
+    console.log(`User ${userId} has left the room`)
+    //@ts-ignore
+    const conn = peerRef.current.connect(userId)
+    conn.close()
+    setUsers((oldUsers) => oldUsers.filter((user: any) => user.id !== userId))
+  })
+
+
+  //On connect to the room, they accept the offer and setup RTCs
+  //@ts-ignore
+  peerRef.current.on('call', (call) => {
+    console.log(`Received call from user ${call.peer}`)
+    const getUserMedia = navigator.mediaDevices.getUserMedia
+    getUserMedia({video: true, audio: true})
+    .then((myStream) => {
+      call.answer(myStream)
+      call.on('stream', (remoteStream: any) => {
+        //@ts-ignore
+        setUsers((oldUsers) => [...oldUsers, {id: call.peer, stream: remoteStream}])
+      })
+    })
+    .catch((error) => {
+      console.log(error)
+    })
+    })  
   }, [])
+
+
 
   const sendMessage = () => {
     if (message) {
@@ -56,8 +114,14 @@ const Call = () => {
   return (
     <div className='flex'>
       <div className='h-screen w-full bg-green-100'>
-        <div>
-          <h1>Actual Video Chat Section Here</h1>
+      <div>
+        <>
+        {users.map((user: any) => {
+          <VideoContainer stream={user.stream}/>
+        })
+        
+        }
+        </>
         </div>
         <div className='bg-red-100'>
           <h1>Video Settings Bar</h1>
