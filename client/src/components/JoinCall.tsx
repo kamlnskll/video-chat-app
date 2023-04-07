@@ -13,6 +13,9 @@ const JoinCall = ({ isOpen, toggleFunction }: Props) => {
 
   const [callId, setCallId] = useState('')
   const navigate = useNavigate()
+  const joinRoom = (id: string) => {
+    socket.emit('join-room', id)
+  }
 
   useEffect(() => {
     setCallId('')

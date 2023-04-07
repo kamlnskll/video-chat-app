@@ -14,6 +14,7 @@ type Props = {
 export const RoomProvider = ({ children }: Props) => {
   const navigate = useNavigate()
   const [me, setMe] = useState<Peer>()
+  const [stream, setStream] = useState<MediaStream>()
   const enterRoom = ({ roomId }: { roomId: 'string' }) => {
     console.log({ roomId })
     navigate(`/call/${roomId}`)
@@ -28,12 +29,22 @@ export const RoomProvider = ({ children }: Props) => {
     const peer = new Peer(myId)
     setMe(peer)
 
+    try {
+      navigator.mediaDevices
+        .getUserMedia({ video: true, audio: true })
+        .then((stream) => {
+          setStream(stream)
+        })
+    } catch (err) {
+      console.error(err)
+    }
+
     socket.on('room-created', enterRoom)
     socket.on('get-users', getUsers)
   }, [])
 
   return (
-    <RoomContext.Provider value={{ socket, me }}>
+    <RoomContext.Provider value={{ socket, me, stream }}>
       {children}
     </RoomContext.Provider>
   )
