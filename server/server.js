@@ -6,6 +6,7 @@ import cors from 'cors'
 import userRoutes from './routes/user.js'
 import mongoose from 'mongoose'
 import bodyParser from 'body-parser'
+import { roomHandler } from './routes/roomHandler.js'
 
 const app = express()
 const httpServer = http.createServer(app)
@@ -29,13 +30,17 @@ app.get('/', (req, res) => {
 
 io.on('connection', (socket) => {
   console.log(socket.id + ' connected')
-  socket.on('join_call', (data) => {
-    if (!socket.rooms.hasOwnProperty(data)) {
-      socket.join(data)
-      console.log(`User with ID ${socket.id} has joined room: ${data}`)
-    } else {
-      console.log(`User with ID: ${socket.id} is already in the room ${data}`)
-    }
+  roomHandler(socket)
+
+  // socket.on('join-room', (data) => {
+  //   if (!socket.rooms.hasOwnProperty(data)) {
+  //     socket.join(data)
+  //     console.log(`User with ID ${socket.id} has joined room: ${data}`)
+  //   } else {
+  //     console.log(`User with ID: ${socket.id} is already in the room ${data}`)
+  //   }
+  socket.on('disconnect', (socket) => {
+    console.log(`${socket.id} disconnected`)
   })
 
   socket.on('leave_call', (data) => {})
@@ -45,10 +50,6 @@ io.on('connection', (socket) => {
       message: data.message,
       sender: socket.id,
     })
-  })
-
-  socket.on('disconnect', (socket) => {
-    console.log(`${socket.id} disconnected`)
   })
 })
 

@@ -1,7 +1,16 @@
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
+import { useParams } from 'react-router-dom'
+import { RoomContext } from '../context/RoomContext'
 
 const Room = () => {
-  return <div>Room</div>
+  const { callId } = useParams()
+  const { socket, me } = useContext(RoomContext)
+
+  useEffect(() => {
+    if (me) socket.emit('join-room', { roomId: callId, peerId: me._id })
+  }, [])
+
+  return <div>Room ID: {callId}</div>
 }
 
 export default Room
