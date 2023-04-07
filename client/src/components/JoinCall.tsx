@@ -44,7 +44,7 @@ const JoinCall = ({ isOpen, toggleFunction }: Props) => {
                 type='button'
                 className='bg-blue-600'
                 onClick={() => {
-                  navigate(`/call/${callId}`)
+                  joinRoom(callId)
                 }}
               >
                 Join

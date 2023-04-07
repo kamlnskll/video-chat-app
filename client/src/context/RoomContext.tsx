@@ -19,7 +19,7 @@ export const RoomProvider = ({ children }: Props) => {
     navigate(`/call/${roomId}`)
   }
 
-  const getUsers = ({ participants }: { participants: string }) => {
+  const getUsers = ({ participants }: { participants: string[] }) => {
     console.log({ participants })
   }
 
@@ -33,6 +33,8 @@ export const RoomProvider = ({ children }: Props) => {
   }, [])
 
   return (
-    <RoomContext.Provider value={{ socket }}> {children} </RoomContext.Provider>
+    <RoomContext.Provider value={{ socket, me }}>
+      {children}
+    </RoomContext.Provider>
   )
 }
