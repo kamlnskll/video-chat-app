@@ -18,6 +18,8 @@ export const RoomProvider = ({ children }: Props) => {
   const [me, setMe] = useState<Peer>()
   const [stream, setStream] = useState<MediaStream>()
   const [peers, dispatch] = useReducer(peerReducer, {})
+  const [micOn, setMicOn] = useState<boolean>(true)
+  const [videoOn, setVideoOn] = useState<boolean>(true)
 
   const enterRoom = ({ roomId }: { roomId: 'string' }) => {
     console.log({ roomId })
@@ -39,7 +41,7 @@ export const RoomProvider = ({ children }: Props) => {
 
     try {
       navigator.mediaDevices
-        .getUserMedia({ video: true, audio: true })
+        .getUserMedia({ video: videoOn, audio: micOn })
         .then((stream) => {
           setStream(stream)
         })
@@ -71,7 +73,7 @@ export const RoomProvider = ({ children }: Props) => {
   }, [stream, me])
 
   return (
-    <RoomContext.Provider value={{ socket, me, stream, peers }}>
+    <RoomContext.Provider value={{ socket, me, stream, peers, micOn, setMicOn, videoOn, setVideoOn }}>
       {children}
     </RoomContext.Provider>
   )
