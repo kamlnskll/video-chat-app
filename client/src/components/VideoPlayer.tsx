@@ -6,7 +6,7 @@ const VideoPlayer = ({ stream }: any) => {
     if (videoRef.current) videoRef.current.srcObject = stream
   }, [stream])
 
-  return <video ref={videoRef} autoPlay />
+  return <video className='border-4 w-[450px]' ref={videoRef} autoPlay />
 }
 
 export default VideoPlayer
