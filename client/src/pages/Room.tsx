@@ -5,10 +5,11 @@ import VideoPlayer from '../components/VideoPlayer'
 import { PeerState } from '../context/peerReducer'
 import CallMenu from '../components/CallMenu'
 import InviteModal from '../components/InviteModal'
+import RoomChat from '../components/RoomChat'
 
 const Room = () => {
   const { callId } = useParams()
-  const { socket, me, stream, peers } = useContext(RoomContext)
+  const { socket, me, stream, peers, openChatToggle } = useContext(RoomContext)
   const [openInviteModal, setOpenInviteModal] = useState(false)
 
   const inviteModalHandler = (boolean: boolean) => {
@@ -30,7 +31,9 @@ const Room = () => {
           callId={callId}
         />
       </div>
-
+      <div className='absolute right-0'>
+        <RoomChat isOpen={openChatToggle} />
+      </div>
       <div className='bg-neutral-800 text-center text-white h-[30px] sticky'>
         <h1>Room ID: {callId}</h1>
       </div>

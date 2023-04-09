@@ -20,6 +20,7 @@ export const RoomProvider = ({ children }: Props) => {
   const [peers, dispatch] = useReducer(peerReducer, {})
   const [micOn, setMicOn] = useState<boolean>(true)
   const [videoOn, setVideoOn] = useState<boolean>(true)
+  const [openChatToggle, setOpenChatToggle] = useState<boolean>(false)
 
   const enterRoom = ({ roomId }: { roomId: 'string' }) => {
     console.log({ roomId })
@@ -73,7 +74,20 @@ export const RoomProvider = ({ children }: Props) => {
   }, [stream, me])
 
   return (
-    <RoomContext.Provider value={{ socket, me, stream, peers, micOn, setMicOn, videoOn, setVideoOn }}>
+    <RoomContext.Provider
+      value={{
+        socket,
+        me,
+        stream,
+        peers,
+        micOn,
+        setMicOn,
+        videoOn,
+        setVideoOn,
+        setOpenChatToggle,
+        openChatToggle,
+      }}
+    >
       {children}
     </RoomContext.Provider>
   )
