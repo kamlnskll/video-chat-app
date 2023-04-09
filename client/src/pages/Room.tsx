@@ -11,9 +11,9 @@ const Room = () => {
   const { socket, me, stream, peers } = useContext(RoomContext)
   const [openInviteModal, setOpenInviteModal] = useState(false)
 
-const inviteModalHandler = (boolean: boolean) => {
-setOpenInviteModal(boolean)
-}
+  const inviteModalHandler = (boolean: boolean) => {
+    setOpenInviteModal(boolean)
+  }
 
   useEffect(() => {
     if (me) socket.emit('join-room', { roomId: callId, peerId: me._id })
@@ -23,20 +23,37 @@ setOpenInviteModal(boolean)
 
   return (
     <div className='relative'>
-            <div className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2'><InviteModal inviteModalHandler={inviteModalHandler} isOpen={openInviteModal} callId={callId}/></div>
+      <div className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2'>
+        <InviteModal
+          inviteModalHandler={inviteModalHandler}
+          isOpen={openInviteModal}
+          callId={callId}
+        />
+      </div>
 
-      <div className='bg-neutral-800 text-center text-white h-[30px]'>
+      <div className='bg-neutral-800 text-center text-white h-[30px] sticky'>
         <h1>Room ID: {callId}</h1>
-        </div>
-      <div className='bg-black h-screen grid grid-cols-3 p-4' id='video-container'>
+      </div>
+      <div
+        className='bg-black h-screen grid grid-cols-3 p-4'
+        id='video-container'
+      >
         <div className='col-span-1 row-span-1 relative'>
-      <VideoPlayer stream={stream} />
+          <VideoPlayer stream={stream} />
+        </div>
+        {Object.values(peers as PeerState).map((peer) => (
+          <VideoPlayer stream={peer.stream} />
+        ))}
       </div>
-      {Object.values(peers as PeerState).map((peer) => (
-        <VideoPlayer stream={peer.stream} />
-      ))}
+      <div className='bg-neutral-800 bottom-0 sticky absolute w-full'>
+        <CallMenu
+          inviteModal={openInviteModal}
+          openInviteModal={inviteModalHandler}
+          myId={me}
+          callId={callId}
+          participants={peers}
+        />
       </div>
-      <div className='bg-neutral-800 bottom-0 sticky absolute w-full'><CallMenu inviteModal={openInviteModal} openInviteModal={inviteModalHandler} myId={me} callId={callId} participants={peers}/></div>
     </div>
   )
 }
