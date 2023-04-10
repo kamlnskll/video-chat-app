@@ -23,7 +23,7 @@ const Room = () => {
   }, [])
 
   return (
-    <div className='relative'>
+    <div className='relative overflow-y-none'>
       <div className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2'>
         <InviteModal
           inviteModalHandler={inviteModalHandler}
@@ -34,7 +34,7 @@ const Room = () => {
       <div className='absolute right-0'>
         <RoomChat isOpen={openChatToggle} />
       </div>
-      <div className='bg-neutral-800 text-center text-white h-[30px] sticky'>
+      <div className='bg-neutral-800 text-center text-white h-[30px] sticky z-50'>
         <h1>Room ID: {callId}</h1>
       </div>
       <div
@@ -48,7 +48,7 @@ const Room = () => {
           <VideoPlayer stream={peer.stream} />
         ))}
       </div>
-      <div className='bg-neutral-800 bottom-0 sticky absolute w-full'>
+      <div className='bg-neutral-800 bottom-0 sticky absolute w-full z-50'>
         <CallMenu
           inviteModal={openInviteModal}
           openInviteModal={inviteModalHandler}

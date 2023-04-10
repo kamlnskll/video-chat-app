@@ -50,17 +50,24 @@ const CallMenu = ({
             setVideoOn(!videoOn)
             console.log(videoOn)
           }}
+          className='cursor-pointer'
         >
           {videoOn ? <VideoOn /> : <VideoOff />}
           <h1>Stop Video</h1>
         </div>
       </div>
       <div className='flex gap-8'>
-        <div onClick={() => openInviteModal(!inviteModal)}>
+        <div
+          onClick={() => openInviteModal(!inviteModal)}
+          className='cursor-pointer'
+        >
           <Invite />
           <h1>Invite</h1>
         </div>
-        <div className='' onClick={() => setOpenChatToggle(!openChatToggle)}>
+        <div
+          className='cursor-pointer'
+          onClick={() => setOpenChatToggle(!openChatToggle)}
+        >
           <Chat />
           <h1>Chat</h1>
         </div>
