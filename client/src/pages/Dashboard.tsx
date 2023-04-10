@@ -32,9 +32,9 @@ const Dashboard = () => {
         </div>
         <div className='grid grid-cols-2 grid-rows-2 bg-gray-100 rounded-lg'>
           <div className='col-span-1 row-span-1 bg-orange-400 m-2 rounded-xl border border-slate-400 cursor-pointer hover:bg-orange-500'>
-            <CreateRoom />
             <svg />
-            <h1 className='w-full text-white text-center font-bold text-xl'></h1>
+            <CreateRoom />
+            {/* <h1 className='w-full text-white text-center font-bold text-xl'></h1> */}
           </div>
           <div
             className='col-span-1 row-span-1 hover:bg-blue-700 bg-blue-600 m-2 rounded-xl border border-slate-400 cursor-pointer'
@@ -50,14 +50,12 @@ const Dashboard = () => {
           <div className='col-span-1 row-span-1 hover:bg-blue-700 bg-blue-600 m-2 rounded-xl border border-slate-400'>
             <svg />
             <h1 className='text-white text-center font-bold text-xl'>
-              Start a call
+              Calender
             </h1>
           </div>
           <div className='col-span-1 row-span-1 hover:bg-blue-700 bg-blue-600 m-2 rounded-xl border border-slate-400'>
             <svg />
-            <h1 className='text-white text-center font-bold text-xl'>
-              Start a call
-            </h1>
+            <h1 className='text-white text-center font-bold text-xl'>Test</h1>
           </div>
         </div>
         <div className='bg-gray-100 rounded-lg'>

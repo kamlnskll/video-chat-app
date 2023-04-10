@@ -34,20 +34,18 @@ io.on('connection', (socket) => {
 
   socket.on('join-room', (data) => {
     console.log(data.roomId)
-    if (!socket.rooms.hasOwnProperty(data.peerId)) {
-      socket.join(data.roomId)
-      console.log(`User with ID ${socket.id} has joined room: ${data.roomId}`)
-    } else {
-      console.log(
-        `User with ID: ${socket.id} is already in the room ${data.roomId}`
-      )
-    }
+    // if (!socket.rooms.hasOwnProperty(data.peerId)) {
+    socket.join(data.roomId)
+    console.log(`User with ID ${socket.id} has joined room: ${data.roomId}`)
+    // } else {
+    //   console.log(
+    //     `User with ID: ${socket.id} is already in the room ${data.roomId}`
+    //   )
+    // }
   })
 
   socket.on('receive_message', (data) => {
     console.log('received message from emitter', { data })
-    console.log(data.sender)
-    console.log(data.message)
   })
 
   socket.on('disconnect', (socket) => {
@@ -57,10 +55,8 @@ io.on('connection', (socket) => {
   socket.on('leave_call', (data) => {})
 
   socket.on('send_message', (data) => {
-    socket.to(data.roomId).emit('receive_message', {
-      message: data.message,
-      sender: data.peerId,
-    })
+    socket.to(data.roomId).emit('receive_message', data)
+    console.log('sent data to room on serverside', data)
   })
 })
 

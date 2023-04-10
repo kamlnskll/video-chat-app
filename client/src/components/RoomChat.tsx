@@ -1,26 +1,47 @@
 import React, { useState, useContext, useEffect } from 'react'
 import ChatBubble from './ChatBubble'
 import { RoomContext } from '../context/RoomContext'
+import { useParams } from 'react-router-dom'
 
 type Props = {
   isOpen: boolean
 }
 
 const RoomChat = ({ isOpen }: Props) => {
-  const [chats, setChats] = useState<Array<Object>>([])
+  const { callId } = useParams()
+  const [chats, setChats] = useState<Array<Object>>([{}])
   const [message, setMessage] = useState('')
-  const { socket } = useContext(RoomContext)
+  const { socket, me, peers } = useContext(RoomContext)
 
-  const sendMessageHandler = () => {
-    if (message !== '') {
-      setMessage('')
-      socket.emit('send_message', {
-        roomId: socket.room,
-        message: message,
-        sender: socket.id,
-      })
-      setChats((oldChats) => [message, ...oldChats])
+  useEffect(() => {
+    socket.emit('receive_message')
+    socket.on('receive_message', (data: any) => {
+      setChats((oldChats) => [...oldChats, data])
+      console.log('received messsage', data)
       console.log(chats)
+    })
+  }, [socket])
+
+  const sendMessageHandler = async () => {
+    // console.log(me)
+    if (message !== '') {
+      const messageData = {
+        roomId: callId,
+        sender: socket.id,
+        message: message,
+        time:
+          new Date(Date.now()).getHours() +
+          ':' +
+          new Date(Date.now()).getMinutes(),
+      }
+
+      await socket.emit('send_message', messageData, () => {
+        setChats((oldChats) => [...oldChats, messageData])
+        console.log('clientside send message fired', messageData)
+        console.log(chats)
+      })
+      setMessage('')
+      // console.log(chats)
     } else {
       console.log('Cannot send an empty message')
     }
@@ -36,7 +57,7 @@ const RoomChat = ({ isOpen }: Props) => {
             </h1>
           </div>
           <div>
-            {chats.map((chat) => (
+            {chats.map((chat: Object) => (
               <ChatBubble chat={chat} isMe={true} />
             ))}
           </div>

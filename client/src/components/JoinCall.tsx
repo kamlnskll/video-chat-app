@@ -9,12 +9,19 @@ type Props = {
 }
 
 const JoinCall = ({ isOpen, toggleFunction }: Props) => {
-  const { socket } = useContext(RoomContext)
+  const { socket, me } = useContext(RoomContext)
 
   const [callId, setCallId] = useState('')
   const navigate = useNavigate()
-  const joinRoom = (id: string) => {
-    socket.emit('join-room', id)
+
+  const joinRoom = (id: any, peerId: any) => {
+    try {
+      socket.emit('join-room', id, peerId._id)
+      navigate(`/call/${id}`)
+      // console.log('joined room', 'id:', id, 'peerid:', peerId._id)
+    } catch (err) {
+      console.log('Error joining room', err)
+    }
   }
 
   useEffect(() => {
@@ -47,7 +54,7 @@ const JoinCall = ({ isOpen, toggleFunction }: Props) => {
                 type='button'
                 className='bg-blue-600'
                 onClick={() => {
-                  joinRoom(callId)
+                  joinRoom(callId, me)
                 }}
               >
                 Join
