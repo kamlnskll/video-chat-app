@@ -12,14 +12,18 @@ const RoomChat = ({ isOpen }: Props) => {
   const { socket } = useContext(RoomContext)
 
   const sendMessageHandler = () => {
-    setMessage('')
-    setChats((oldChats) => [message, ...oldChats])
-    console.log(chats)
+    if (message !== '') {
+      setMessage('')
+      socket.emit('send_message', {
+        message: message,
+        sender: socket.id,
+      })
+      setChats((oldChats) => [message, ...oldChats])
+      console.log(chats)
+    } else {
+      console.log('Cannot send an empty message')
+    }
   }
-
-  useEffect(() => {
-    socket.on('')
-  })
 
   return (
     <>
