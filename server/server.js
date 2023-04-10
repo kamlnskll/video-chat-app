@@ -57,8 +57,7 @@ io.on('connection', (socket) => {
   socket.on('leave_call', (data) => {})
 
   socket.on('send_message', (data) => {
-    console.log('sent message')
-    io.in(data.roomId).emit('receive_message', {
+    socket.to(data.roomId).emit('receive_message', {
       message: data.message,
       sender: data.peerId,
     })

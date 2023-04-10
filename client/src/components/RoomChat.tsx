@@ -15,6 +15,7 @@ const RoomChat = ({ isOpen }: Props) => {
     if (message !== '') {
       setMessage('')
       socket.emit('send_message', {
+        roomId: socket.room,
         message: message,
         sender: socket.id,
       })
