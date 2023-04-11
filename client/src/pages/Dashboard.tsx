@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import Navbar from '../components/Navbar'
 import dayjs from 'dayjs'
 import JoinCall from '../components/JoinCall'
@@ -6,6 +6,7 @@ import Calendar from 'react-calendar'
 import { useNavigate } from 'react-router-dom'
 import { v4 as uuid } from 'uuid'
 import CreateRoom from '../components/CreateRoom'
+import { fetchUserData } from '../axios/userRoutes'
 
 const Dashboard = () => {
   const time = dayjs().format('h:mm')
@@ -17,6 +18,10 @@ const Dashboard = () => {
   const handleJoinCallModalToggle = (boolean: any) => {
     setToggleJoinCall(boolean)
   }
+
+  useEffect(() => {
+    fetchUserData().then((res) => console.log(res))
+  }, [])
 
   return (
     <div>

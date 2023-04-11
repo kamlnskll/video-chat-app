@@ -1,5 +1,11 @@
-import React from 'react'
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import React, { useEffect } from 'react'
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Navigate,
+  useParams,
+} from 'react-router-dom'
 import Dashboard from './pages/Dashboard'
 import Login from './pages/Login'
 import Register from './pages/Register'
@@ -9,21 +15,46 @@ import Profile from './pages/Profile'
 import Settings from './pages/Settings'
 import { useUserContext } from './hooks/useUserContext'
 import Room from './pages/Room'
+import { fetchUserData } from './axios/userRoutes'
 
 function App() {
-  // const { user } = useUserContext()
+  const { user } = useUserContext()
 
   return (
     <div>
       <Routes>
-        <Route path='/' element={<Dashboard />} />
-        <Route path='/chat' element={<Chat />} />
-        <Route path='/contacts' element={<Contacts />} />
-        <Route path='/profile' element={<Profile />} />
-        <Route path='/settings' element={<Settings />} />
-        <Route path='/login' element={<Login />} />
-        <Route path='/register' element={<Register />} />
-        <Route path='/call/:callId' element={<Room />} />
+        <Route
+          path='/login'
+          element={!user ? <Login /> : <Navigate to={'/'} />}
+        />
+        <Route
+          path='/register'
+          element={!user ? <Register /> : <Navigate to={'/'} />}
+        />
+        <Route
+          path='/'
+          element={user ? <Dashboard /> : <Navigate to={'/login'} />}
+        />
+        <Route
+          path='/chat'
+          element={user ? <Chat /> : <Navigate to={'/login'} />}
+        />
+        <Route
+          path='/contacts'
+          element={user ? <Contacts /> : <Navigate to={'/login'} />}
+        />
+        <Route
+          path='/profile'
+          element={user ? <Profile /> : <Navigate to={'/login'} />}
+        />
+        <Route
+          path='/settings'
+          element={user ? <Settings /> : <Navigate to={'/login'} />}
+        />
+        <Route
+          path='/call/:callId'
+          element={user ? <Room /> : <Navigate to={'/login'} />}
+        />
         <Route path='*' element={<Dashboard />} />
       </Routes>
     </div>

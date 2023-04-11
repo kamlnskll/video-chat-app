@@ -1,5 +1,10 @@
 import axios from 'axios'
 
+// @ts-ignore
+const token = JSON.parse(localStorage.getItem('token'))
+
+axios.defaults.headers.common = { Authorization: `Bearer ${token}` }
+
 export const registerNewUser = async (
   firstName: string,
   lastName: string,
@@ -42,6 +47,15 @@ export const loginUser = async (userName: string, password: string) => {
         localStorage.setItem('token', JSON.stringify(token))
         return response.data
       })
+  } catch (err) {
+    throw err
+  }
+}
+
+export const fetchUserData = async () => {
+  try {
+    const data = await axios.get(`http://localhost:8000/api/user/fetchuserdata`)
+    return data.data
   } catch (err) {
     throw err
   }
