@@ -1,5 +1,11 @@
-import React from 'react'
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import React, { useEffect } from 'react'
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Navigate,
+  useParams,
+} from 'react-router-dom'
 import Dashboard from './pages/Dashboard'
 import Login from './pages/Login'
 import Register from './pages/Register'
@@ -9,6 +15,7 @@ import Profile from './pages/Profile'
 import Settings from './pages/Settings'
 import { useUserContext } from './hooks/useUserContext'
 import Room from './pages/Room'
+import { fetchUserData } from './axios/userRoutes'
 
 function App() {
   const { user } = useUserContext()

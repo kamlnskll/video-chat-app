@@ -6,6 +6,7 @@ import Calendar from 'react-calendar'
 import { useNavigate } from 'react-router-dom'
 import { v4 as uuid } from 'uuid'
 import CreateRoom from '../components/CreateRoom'
+import { fetchUserData } from '../axios/userRoutes'
 
 const Dashboard = () => {
   const time = dayjs().format('h:mm')
@@ -19,8 +20,7 @@ const Dashboard = () => {
   }
 
   useEffect(() => {
-    console.log()
-    // fetchUserData(user).then((res) => console.log(res))
+    fetchUserData().then((res) => console.log(res))
   }, [])
 
   return (

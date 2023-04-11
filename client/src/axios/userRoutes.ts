@@ -1,5 +1,10 @@
 import axios from 'axios'
 
+// @ts-ignore
+const token = JSON.parse(localStorage.getItem('token'))
+
+axios.defaults.headers.common = { Authorization: `Bearer ${token}` }
+
 export const registerNewUser = async (
   firstName: string,
   lastName: string,
@@ -47,14 +52,10 @@ export const loginUser = async (userName: string, password: string) => {
   }
 }
 
-export const fetchUserData = async (userId: any) => {
+export const fetchUserData = async () => {
   try {
-    await axios
-      .get(`http://localhost/api/user/fetchuserdata`, userId)
-      .then(function (response) {
-        console.log(response.data)
-        return response.data
-      })
+    const data = await axios.get(`http://localhost:8000/api/user/fetchuserdata`)
+    return data.data
   } catch (err) {
     throw err
   }
