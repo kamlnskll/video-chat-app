@@ -52,7 +52,15 @@ io.on('connection', (socket) => {
     console.log(`${socket.id} disconnected`)
   })
 
-  socket.on('leave_call', (data) => {})
+  socket.on('leave_call', (data) => {
+    try {
+      socket.leave(data)
+      console.log('left call with id', data)
+    } catch (err) {
+      console.log(err)
+    }
+    console.log('leave_call triggered', data)
+  })
 
   socket.on('send_message', (data) => {
     socket.to(data.roomId).emit('receive_message', data)

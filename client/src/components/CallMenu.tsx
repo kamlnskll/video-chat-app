@@ -34,7 +34,8 @@ const CallMenu = ({
   const navigate = useNavigate()
 
   const leaveCall = () => {
-    socket.emit('user-disconnected', myId)
+    // socket.emit('user-disconnected', myId)
+    socket.emit('leave_call', callId)
     navigate('/')
   }
 
@@ -76,7 +77,7 @@ const CallMenu = ({
         <button
           type='button'
           className='text-red-600 hover:border-2 hover:bg-red-600 hover:text-white hover:border-black px-2 py-1 rounded-xl'
-          onClick={() => leaveCall()}
+          onClick={leaveCall}
         >
           Disconnect
         </button>
