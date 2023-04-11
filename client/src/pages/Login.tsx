@@ -17,9 +17,12 @@ const Login = () => {
         <div className='text-3xl mt-32 font-bold text-blue-700'>
           <h1 className='text-center'>Zoom Clone</h1>
         </div>
-        <div className='bg-gray-100 w-[450px] h-[350px] mx-auto rounded-xl relative'>
+        <div className='bg-gray-100 w-[450px] h-[350px] mx-auto rounded-xl relative mt-12'>
+          <div className='text-lg pt-4 font-bold text-black-700'>
+            <h1 className='text-center uppercase'>Login</h1>
+          </div>
           <form>
-            <div className='mt-4 pt-16'>
+            <div className='mt-4'>
               <input
                 name='username'
                 placeholder='Username'
