@@ -76,3 +76,15 @@ export const loginUser = async (req, res) => {
     throw new Error('Invalid credentials')
   }
 }
+
+export const fetchUserData = async (req, res) => {
+  const userId = req.body
+  const user = await User.findById({ userId })
+  if (user) {
+    res.status(200).json({
+      userName: user.userName,
+      fullName: `${user.firstName} ${user.lastName}`,
+      profilePic: `${user.profilePic}`,
+    })
+  }
+}

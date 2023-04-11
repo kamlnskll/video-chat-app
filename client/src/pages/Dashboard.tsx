@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import Navbar from '../components/Navbar'
 import dayjs from 'dayjs'
 import JoinCall from '../components/JoinCall'
@@ -17,6 +17,11 @@ const Dashboard = () => {
   const handleJoinCallModalToggle = (boolean: any) => {
     setToggleJoinCall(boolean)
   }
+
+  useEffect(() => {
+    console.log()
+    // fetchUserData(user).then((res) => console.log(res))
+  }, [])
 
   return (
     <div>

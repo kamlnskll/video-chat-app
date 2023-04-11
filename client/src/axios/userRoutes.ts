@@ -46,3 +46,16 @@ export const loginUser = async (userName: string, password: string) => {
     throw err
   }
 }
+
+export const fetchUserData = async (userId: any) => {
+  try {
+    await axios
+      .get(`http://localhost/api/user/fetchuserdata`, userId)
+      .then(function (response) {
+        console.log(response.data)
+        return response.data
+      })
+  } catch (err) {
+    throw err
+  }
+}
