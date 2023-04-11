@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react'
 import { useContext } from 'react'
 import { RoomContext } from '../context/RoomContext'
-import { VideoOn, VideoOff } from '../icons/Video'
-import { MicOn, MicOff } from '../icons/Mic'
-import { Invite } from '../icons/Invite'
-import { Chat } from '../icons/Chat'
+import { VideoOn, VideoOff } from '../static/icons/Video'
+import { MicOn, MicOff } from '../static/icons/Mic'
+import { Invite } from '../static/icons/Invite'
+import { Chat } from '../static/icons/Chat'
 import { useNavigate } from 'react-router-dom'
 
 type Props = {
