@@ -9,7 +9,7 @@ const ContactCard = ({ contact }: Props) => {
 
   return (
     <div
-      className='flex p-2 mx-6 hover:bg-gray-100 cursor-pointer'
+      className='flex p-2 mx-6 hover:bg-gray-100 cursor-pointer rounded-xl'
       onClick={() => navigate(`/profile/${contact.userName}`)}
     >
       <div>
