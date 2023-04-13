@@ -4,7 +4,7 @@ import { useUserContext } from '../hooks/useUserContext'
 import { useNavigate } from 'react-router-dom'
 
 const Login = () => {
-  const { dispatch } = useUserContext()
+  const { dispatch, setUserData } = useUserContext()
   const token = localStorage.getItem('token')
 
   const [userName, setUserName] = useState('')
@@ -43,7 +43,7 @@ const Login = () => {
                 type='button'
                 className='font-bold py-1 bg-blue-700 hover:bg-blue-800 mx-auto rounded-lg text-white w-1/2 ml-28 border text-center'
                 onClick={() => {
-                  loginUser(userName, password)
+                  loginUser(userName, password).then((res) => setUserData(res))
                   dispatch({ type: 'LOGIN', payload: token })
                 }}
               >

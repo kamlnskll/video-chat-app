@@ -44,8 +44,8 @@ function App() {
           element={user ? <Contacts /> : <Navigate to={'/login'} />}
         />
         <Route
-          path='/profile'
-          element={user ? <Profile /> : <Navigate to={'/login'} />}
+          path='/profile/:userName'
+          element={user ? <Profile isMe={false} /> : <Navigate to={'/login'} />}
         />
         <Route
           path='/settings'

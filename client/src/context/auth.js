@@ -1,4 +1,4 @@
-import { useReducer, createContext, useEffect } from 'react'
+import { useReducer, createContext, useEffect, useState } from 'react'
 
 // createContext for storing to check user authentication
 export const userContext = createContext()
@@ -18,6 +18,7 @@ export function userReducer(state, action) {
 }
 
 export const UserContextProvider = ({ children }) => {
+  const [userData, setUserData] = useState(null)
   const [state, dispatch] = useReducer(userReducer, {
     user: null,
   })
@@ -33,7 +34,7 @@ export const UserContextProvider = ({ children }) => {
   }, [])
 
   return (
-    <userContext.Provider value={{ ...state, dispatch }}>
+    <userContext.Provider value={{ ...state, dispatch, userData, setUserData }}>
       {children}
     </userContext.Provider>
   )

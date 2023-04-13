@@ -79,7 +79,19 @@ export const loginUser = async (req, res) => {
 
 export const fetchUserData = async (req, res) => {
   // const userId = req.user
-  const user = await User.findById(req.user)
+  const user = await User.findById(req.user).populate('contacts')
+  if (user) {
+    res.status(200).json(user)
+  } else {
+    res.status(400)
+    throw new Error('Could not fetch user')
+  }
+}
+
+export const fetchProfile = async (req, res) => {
+  const user = await User.findOne({ userName: req.params.userName }).populate(
+    'contacts'
+  )
   if (user) {
     res.status(200).json(user)
   } else {

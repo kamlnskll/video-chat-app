@@ -1,6 +1,7 @@
 import express from 'express'
 import cors from 'cors'
 import {
+  fetchProfile,
   fetchUserData,
   loginUser,
   registerNewUser,
@@ -13,6 +14,7 @@ router.use(cors())
 router.post('/register', registerNewUser)
 router.post('/login', loginUser)
 router.use(requireLogin)
+router.get('/fetchprofile/:userName', fetchProfile)
 router.get('/fetchuserdata', fetchUserData)
 
 export default router
