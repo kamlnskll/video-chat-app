@@ -9,6 +9,7 @@ const Navbar = () => {
       setUserData(res)
     })
     console.log('console log userdata in nav comp', userData)
+    console.log('user contacts', userData?.contacts)
   }, [])
 
   const { userData, setUserData } = useContext(userContext)

@@ -1,9 +1,18 @@
 import React from 'react'
 
-const ContactCard = () => {
+type Props = {
+  contact: any | undefined
+}
+
+const ContactCard = ({ contact }: Props) => {
   return (
-    <div>
-      <h1>This will be the contact card with full info</h1>
+    <div className='border flex'>
+      <div>
+        <img src={contact?.profilePic} className='w-[50px] h-[50px]' />
+      </div>
+      <div>
+        <h1>{contact?.userName}</h1>
+      </div>
     </div>
   )
 }
