@@ -60,3 +60,14 @@ export const fetchUserData = async () => {
     throw err
   }
 }
+
+export const fetchProfile = async (userName: string | undefined) => {
+  try {
+    const data = await axios.get(
+      `http://localhost:8000/api/user/fetchprofile/${userName}`
+    )
+    return data.data
+  } catch (err) {
+    throw err
+  }
+}

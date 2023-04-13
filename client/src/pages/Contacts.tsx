@@ -3,16 +3,12 @@ import Navbar from '../components/Navbar'
 import { fetchUserData } from '../axios/userRoutes'
 
 const Contacts = () => {
-  useEffect(() => {
-    fetchUserData().then((res) => console.log(res))
-  }, [])
-
   return (
-    <div>
+    <div className=''>
       <div>
         <Navbar />
       </div>
-      Contacts
+      <div className='mx-auto border bg-white w-[500px] h-[500px]'></div>
     </div>
   )
 }

@@ -87,3 +87,13 @@ export const fetchUserData = async (req, res) => {
     throw new Error('Could not fetch user')
   }
 }
+
+export const fetchProfile = async (req, res) => {
+  const user = await User.findOne({ userName: req.params.userName })
+  if (user) {
+    res.status(200).json(user)
+  } else {
+    res.status(400)
+    throw new Error('Could not fetch user')
+  }
+}
