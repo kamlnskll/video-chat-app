@@ -1,13 +1,25 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import Navbar from '../components/Navbar'
 import { userContext } from '../context/auth'
 import ContactCard from '../components/ContactCard'
+import ContactModal from '../components/ContactModal'
 
 const Contacts = () => {
   const { userData, setUserData } = useContext(userContext)
+  const [addContactModal, setAddContactModal] = useState(false)
+
+  const handleModalToggle = () => {
+    setAddContactModal(!addContactModal)
+  }
 
   return (
-    <div className=''>
+    <div className='relative'>
+      <div className='absolute top-1/2 left-1/3 z-10'>
+        <ContactModal
+          isOpen={addContactModal}
+          modalHandler={handleModalToggle}
+        />
+      </div>
       <div>
         <Navbar />
       </div>
@@ -15,7 +27,12 @@ const Contacts = () => {
         <h1 className='text-center font-semibold text-xl mt-4'>{`Contacts (${userData?.contacts?.length})`}</h1>
         <button
           type='button'
-          className='border px-2 text-sm text-white rounded-lg font-semibold bg-orange-600 absolute top-5 right-4'
+          className={
+            addContactModal
+              ? `hidden`
+              : `border px-2 text-sm text-white rounded-lg font-semibold bg-orange-600 absolute top-5 right-4`
+          }
+          onClick={() => setAddContactModal(!addContactModal)}
         >
           Add Contact
         </button>
@@ -23,7 +40,6 @@ const Contacts = () => {
           {userData?.contacts?.map((contact: Object) => {
             return <ContactCard contact={contact} />
           })}
-          <h1>Contact Cards Mapped Here</h1>
         </div>
       </div>
     </div>
