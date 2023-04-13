@@ -8,7 +8,11 @@ const ContactCard = ({ contact }: Props) => {
   return (
     <div className='border flex'>
       <div>
-        <img src={contact?.profilePic} className='w-[50px] h-[50px]' />
+        <img
+          alt='profile pic tag'
+          src={contact?.profilePic}
+          className='w-[50px] h-[50px]'
+        />
       </div>
       <div>
         <h1>{contact?.userName}</h1>
