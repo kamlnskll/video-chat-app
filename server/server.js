@@ -4,6 +4,7 @@ import http from 'http'
 import { Server } from 'socket.io'
 import cors from 'cors'
 import userRoutes from './routes/user.js'
+import chatRoutes from './routes/chat.js'
 import mongoose from 'mongoose'
 import bodyParser from 'body-parser'
 import { roomHandler } from './routes/roomHandler.js'
@@ -71,6 +72,7 @@ io.on('connection', (socket) => {
 // API Routes
 
 app.use('/api/user', userRoutes)
+app.use('/api/chat', chatRoutes)
 
 const connectToMongoDB = async () => {
   try {
