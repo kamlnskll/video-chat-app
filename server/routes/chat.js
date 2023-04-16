@@ -6,7 +6,7 @@ import { requireLogin } from '../utils/auth.js'
 const router = express.Router()
 router.use(cors())
 
-// router.use(requireLogin)
+router.use(requireLogin)
 router.post('/createchat', createNewChat)
 router.get('/getchats', fetchExistingChats)
 

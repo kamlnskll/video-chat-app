@@ -1,4 +1,5 @@
-import Chat from '../models/chat'
+import Chat from '../models/chat.js'
+import Message from '../models/message.js'
 
 export const createNewChat = async (req, res) => {
   const newChat = new Chat({
@@ -21,5 +22,14 @@ export const fetchExistingChats = async (req, res) => {
     res.status(200).json(chats)
   } catch (err) {
     res.status(500).json(err)
+  }
+}
+
+export const fetchMessagesInChat = async (req, res) => {
+  try {
+    const messages = await Message.find({ toChatWithId: req.body }).populate('sender')
+    res.status(200).json(messages)
+  } catch (err) {
+    console.log(err)
   }
 }
