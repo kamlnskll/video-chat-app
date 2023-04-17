@@ -30,3 +30,32 @@ export const createNewChat = async (sender: any, receiver: any) => {
     console.log(err)
   }
 }
+
+export const findMessagesInChat = async (chatId: any) => {
+  try {
+    const messages = await axios.get(
+      `http://localhost:8000/api/chat/getmessages/${chatId}`
+    )
+    return messages.data
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+export const sendMessage = async (message: any, senderId: any, chatId: any) => {
+  const messageData = {
+    message: message,
+    sender: senderId,
+    toChatWithId: chatId,
+  }
+  try {
+    const message = await axios.post(
+      `http://localhost:8000/api/chat/sendmessage`,
+      messageData
+    )
+    console.log(message.data)
+    return message
+  } catch (err) {
+    console.log(err)
+  }
+}

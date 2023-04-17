@@ -27,8 +27,25 @@ export const fetchExistingChats = async (req, res) => {
 
 export const fetchMessagesInChat = async (req, res) => {
   try {
-    const messages = await Message.find({ toChatWithId: req.body }).populate('sender')
+    const messages = await Message.find({
+      toChatWithId: req.body.chatId,
+    }).populate('sender')
     res.status(200).json(messages)
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+export const createNewMessage = async (req, res) => {
+  const message = new Message({
+    message: req.body.message,
+    sender: req.body.senderId,
+    toChatWithId: req.body.chatId,
+  })
+
+  try {
+    const saveMessage = await message.save()
+    res.status(200).json(saveMessage)
   } catch (err) {
     console.log(err)
   }
