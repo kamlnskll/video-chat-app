@@ -4,6 +4,8 @@ import { userContext } from '../context/auth'
 import { fetchUserData } from '../axios/userRoutes'
 
 const Navbar = () => {
+  const { userData, setUserData } = useContext(userContext)
+
   useEffect(() => {
     fetchUserData().then((res) => {
       setUserData(res)
@@ -11,8 +13,6 @@ const Navbar = () => {
     console.log('console log userdata in nav comp', userData)
     console.log('user contacts', userData?.contacts)
   }, [])
-
-  const { userData, setUserData } = useContext(userContext)
 
   return (
     <div className='bg-gray-100 py-4 border-b'>
