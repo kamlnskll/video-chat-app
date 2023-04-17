@@ -20,7 +20,7 @@ const Chat = () => {
         <Navbar />
       </div>
       <div className='mx-auto border bg-white w-[700px] h-[500px] mt-12 relative rounded-xl grid grid-cols-8 grid-rows-8'>
-        <div className='col-span-2 row-span-8 border'>
+        <div className='col-span-2 row-span-8 border relative'>
           <h1
             className='text-center text-xs font-bold mt-4'
             //@ts-ignore
@@ -40,6 +40,9 @@ const Chat = () => {
               )
             })}
           </div>
+          <h1 className='absolute text-xs border rounded-lg bg-blue-700 text-white font-semibold px-2 bottom-2 right-2 hover:cursor-pointer hover:bg-blue-800'>
+            New
+          </h1>
         </div>
         <div className='border col-span-6 row-span-8'>
           <Chatroom chatId={chatId} />
