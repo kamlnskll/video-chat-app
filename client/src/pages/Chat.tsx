@@ -3,10 +3,16 @@ import Navbar from '../components/Navbar'
 import { fetchUserData } from '../axios/userRoutes'
 import Chatroom from '../components/Chatroom'
 import { getChats } from '../axios/chatRoutes'
+import ChatModal from '../components/ChatModal'
 
 const Chat = () => {
   const [chat, setChat] = useState([])
   const [chatId, setChatId] = useState('')
+  const [toggleNewChatModal, setToggleNewChatModal] = useState(false)
+
+  const modalHandler = (e: any) => {
+    setToggleNewChatModal(e)
+  }
 
   useEffect(() => {
     getChats().then((res) => {
@@ -15,7 +21,10 @@ const Chat = () => {
   }, [])
 
   return (
-    <div>
+    <div className='relative'>
+      <div className='absolute top-1/3 left-1/3 z-20'>
+        <ChatModal isOpen={toggleNewChatModal} toggleModal={modalHandler} />
+      </div>
       <div>
         <Navbar />
       </div>
@@ -40,7 +49,16 @@ const Chat = () => {
               )
             })}
           </div>
-          <h1 className='absolute text-xs border rounded-lg bg-blue-700 text-white font-semibold px-2 bottom-2 right-2 hover:cursor-pointer hover:bg-blue-800'>
+          <h1
+            className={
+              !toggleNewChatModal
+                ? `absolute text-xs border rounded-lg bg-blue-700 text-white font-semibold px-2 bottom-2 right-2 hover:cursor-pointer hover:bg-blue-8000`
+                : 'hidden'
+            }
+            onClick={() => {
+              setToggleNewChatModal(!toggleNewChatModal)
+            }}
+          >
             New
           </h1>
         </div>
