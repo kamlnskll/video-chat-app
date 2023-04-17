@@ -22,6 +22,7 @@ const Chatroom = ({ chatId }: ChatProps) => {
     sendMessage(message, userData._id, chatId).then((res) => {
       console.log(res?.data)
     })
+    setMessage('')
   }
 
   useEffect(() => {
