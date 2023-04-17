@@ -100,7 +100,7 @@ export const fetchProfile = async (req, res) => {
   }
 }
 
-export const searchUsers = async (query: any) => {
+export const searchUsers = async (query) => {
   const users = await User.find({
     $or: [{ userName: { $regex: query, $options: 'i' } }],
   })
