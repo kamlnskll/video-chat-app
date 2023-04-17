@@ -4,7 +4,6 @@ import { useUserContext } from '../hooks/useUserContext'
 export const useLogout = () => {
   //@ts-ignore
   const { dispatch } = useUserContext()
-  const navigate = useNavigate()
 
   const logout = () => {
     // Remove stored token and dispatch logout to context, then navigate
