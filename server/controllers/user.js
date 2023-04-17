@@ -99,3 +99,10 @@ export const fetchProfile = async (req, res) => {
     throw new Error('Could not fetch user')
   }
 }
+
+export const searchUsers = async (query: any) => {
+  const users = await User.find({
+    $or: [{ userName: { $regex: query, $options: 'i' } }],
+  })
+  return users
+}
