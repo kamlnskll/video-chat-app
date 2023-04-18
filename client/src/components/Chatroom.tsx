@@ -14,19 +14,24 @@ const Chatroom = ({ chatId }: ChatProps) => {
   const handleKeyDown = (e: any) => {
     if (e.key === 'Enter') {
       // 👇 Get input value
+      // console.log('chatId', chatId)
+      // console.log('user data', userData._id)
       sendMessageHandler()
+      // console.log('messages', message)
     }
   }
 
-  const sendMessageHandler = () => {
-    sendMessage(message, userData._id, chatId).then((res) => {
-      console.log(res?.data)
+  const sendMessageHandler = async () => {
+    await sendMessage(message, chatId).then((res) => {
+      console.log(res)
     })
     setMessage('')
   }
 
   useEffect(() => {
-    findMessagesInChat(chatId).then((res) => setMessages(res))
+    findMessagesInChat(chatId).then((res) => {
+      setMessages(res)
+    })
     console.log(userData)
   }, [chatId, userData])
 
@@ -39,7 +44,8 @@ const Chatroom = ({ chatId }: ChatProps) => {
       <div>
         {messages?.map((message: any) => (
           <div>
-            <h1>{message.message}</h1>
+            <h1 className=''>{message?.message}</h1>
+            <h1 className=''>{}</h1>
           </div>
         ))}
       </div>
@@ -51,6 +57,7 @@ const Chatroom = ({ chatId }: ChatProps) => {
           onChange={(e: any) => setMessage(e.target.value)}
           onKeyDown={handleKeyDown}
         />
+        <button onClick={sendMessageHandler}>Submit</button>
       </div>
     </div>
   )

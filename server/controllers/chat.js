@@ -1,5 +1,7 @@
 import Chat from '../models/chat.js'
 import Message from '../models/message.js'
+import mongoose from 'mongoose'
+const { ObjectId } = mongoose.Types
 
 export const createNewChat = async (req, res) => {
   const newChat = new Chat({
@@ -28,7 +30,7 @@ export const fetchExistingChats = async (req, res) => {
 export const fetchMessagesInChat = async (req, res) => {
   try {
     const messages = await Message.find({
-      toChatWithId: req.body.chatId,
+      toChatWithId: req.params.chatId,
     }).populate('sender')
     res.status(200).json(messages)
   } catch (err) {
@@ -37,14 +39,10 @@ export const fetchMessagesInChat = async (req, res) => {
 }
 
 export const createNewMessage = async (req, res) => {
-  const message = new Message({
-    message: req.body.message,
-    sender: req.body.senderId,
-    toChatWithId: req.body.chatId,
-  })
-
+  const newMessage = new Message(req.body)
   try {
-    const saveMessage = await message.save()
+    const saveMessage = await newMessage.save()
+    await saveMessage.populate('sender')
     res.status(200).json(saveMessage)
   } catch (err) {
     console.log(err)

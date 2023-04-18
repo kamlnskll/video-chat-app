@@ -42,18 +42,17 @@ export const findMessagesInChat = async (chatId: any) => {
   }
 }
 
-export const sendMessage = async (message: any, senderId: any, chatId: any) => {
+export const sendMessage = async (message: any, toChatWithId: any) => {
   const messageData = {
     message: message,
-    sender: senderId,
-    toChatWithId: chatId,
+    toChatWithId: toChatWithId,
   }
   try {
     const message = await axios.post(
       `http://localhost:8000/api/chat/sendmessage`,
       messageData
     )
-    console.log(message.data)
+    // console.log(message.data)
     return message
   } catch (err) {
     console.log(err)
