@@ -5,6 +5,7 @@ import {
   fetchUserData,
   loginUser,
   registerNewUser,
+  searchUsers,
 } from '../controllers/user.js'
 import { requireLogin } from '../utils/auth.js'
 
@@ -16,5 +17,6 @@ router.post('/login', loginUser)
 router.use(requireLogin)
 router.get('/fetchprofile/:userName', fetchProfile)
 router.get('/fetchuserdata', fetchUserData)
+router.post('/search', searchUsers)
 
 export default router

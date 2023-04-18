@@ -71,3 +71,16 @@ export const fetchProfile = async (userName: string | undefined) => {
     throw err
   }
 }
+
+export const searchUsers = async (searchTerm: string) => {
+  try {
+    const response = await axios.post(`http://localhost:8000/api/user/search`, {
+      searchTerm,
+    })
+    const results = response.data
+    // Update the component state with the search results
+    return results
+  } catch (error) {
+    console.error(error)
+  }
+}

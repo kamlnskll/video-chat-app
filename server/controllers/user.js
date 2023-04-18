@@ -100,9 +100,20 @@ export const fetchProfile = async (req, res) => {
   }
 }
 
-export const searchUsers = async (query) => {
-  const users = await User.find({
-    $or: [{ userName: { $regex: query, $options: 'i' } }],
-  })
-  return users
+export const searchUsers = async (req, res) => {
+  try {
+    const searchTerm = req.body.searchTerm
+
+    // Search collection for a match
+
+    if (req.body.searchTerm !== '' || null) {
+      const searchResults = await User.find({
+        $or: [{ userName: { $regex: searchTerm, $options: 'i' } }],
+      }).exec()
+
+      res.send(searchResults)
+    }
+  } catch (err) {
+    console.log(err)
+  }
 }
