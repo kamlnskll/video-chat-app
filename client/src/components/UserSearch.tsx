@@ -45,6 +45,7 @@ const UserSearch = () => {
               <img
                 className='w-[30px] h-[30px] ml-6 mt-2'
                 src={user?.profilePic}
+                alt={`${user?.userName}'s profile pic`}
               />
             </div>
             <div className='ml-8'>
