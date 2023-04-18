@@ -1,4 +1,5 @@
 import React from 'react'
+import UserSearch from './UserSearch'
 
 type ModalProps = {
   isOpen: boolean
@@ -20,16 +21,8 @@ const ContactModal = ({ isOpen, modalHandler }: ModalProps) => {
             <h1 className='text-center pt-4 font-semibold text-lg'>
               ADD NEW CONTACT
             </h1>
-            <input
-              name='search'
-              placeholder='Search'
-              type='text'
-              className='flex mx-auto w-3/4 h-[50px] outline-none border rounded-lg text-sm pl-6 mb-4 mt-6'
-            />
           </div>
-          <div>
-            <h1>Search results</h1>
-          </div>
+          <UserSearch />
         </div>
       ) : (
         <div></div>
