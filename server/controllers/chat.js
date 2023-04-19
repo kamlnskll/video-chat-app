@@ -39,7 +39,11 @@ export const fetchMessagesInChat = async (req, res) => {
 }
 
 export const createNewMessage = async (req, res) => {
-  const newMessage = new Message(req.body)
+  const newMessage = new Message({
+    message: req.body.message,
+    sender: req.user,
+    toChatWithId: req.body.toChatWithId,
+  })
   try {
     const saveMessage = await newMessage.save()
     await saveMessage.populate('sender')

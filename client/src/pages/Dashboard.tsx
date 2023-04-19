@@ -8,7 +8,7 @@ import { v4 as uuid } from 'uuid'
 import CreateRoom from '../components/CreateRoom'
 
 const Dashboard = () => {
-  const time = dayjs().format('h:mm')
+  const time = dayjs().format('hh:mm')
   const date = dayjs().format('dddd, MMMM DD, YYYY')
   const navigate = useNavigate()
   let uuidv4: string = uuid()

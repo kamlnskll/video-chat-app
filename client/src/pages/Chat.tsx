@@ -11,6 +11,7 @@ const Chat = () => {
   const { userData } = useContext(userContext)
 
   const [chat, setChat] = useState([])
+  const [chatUsername, setChatUsername] = useState('')
   const [chatId, setChatId] = useState('')
   const [toggleNewChatModal, setToggleNewChatModal] = useState(false)
 
@@ -34,11 +35,7 @@ const Chat = () => {
       </div>
       <div className='mx-auto border-gray-50 shadow-sm border bg-white w-[700px] h-[500px] mt-12 relative rounded-xl grid grid-cols-8 grid-rows-8'>
         <div className='col-span-2 row-span-8 relative'>
-          <h1
-            className='text-center border-r border-gray-50 text-xs font-bold mt-4 mb-6'
-            //@ts-ignore
-            onClick={() => console.log(chat)}
-          >
+          <h1 className='text-center border-r border-gray-50 text-xs font-bold mt-4 mb-6'>
             {`Current Chats`}
           </h1>
           <div>
@@ -47,8 +44,13 @@ const Chat = () => {
                 <div
                   className='rounded-lg mx-2 bg-gray-100 hover:bg-gray-200 mt-2 py-2 cursor-pointer'
                   onClick={() => {
-                    console.log(chatData)
-                    setChatId(chatData._id)
+                    setChatUsername(
+                      chatData.members.filter(
+                        (user: any) => user._id !== userData._id
+                      )[0].userName
+                    )
+                    setChatId(chatData?._id)
+                    // setChatUsername(chatData.userName)
                   }}
                 >
                   <div className='flex ml-2'>
@@ -87,7 +89,7 @@ const Chat = () => {
           </h1>
         </div>
         <div className='border-l border-gray-100 col-span-6 row-span-8'>
-          <Chatroom chatId={chatId} />
+          <Chatroom chatId={chatId} chatUsername={chatUsername} />
         </div>
       </div>
     </div>

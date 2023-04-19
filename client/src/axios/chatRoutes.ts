@@ -53,7 +53,7 @@ export const sendMessage = async (message: any, toChatWithId: any) => {
       messageData
     )
     // console.log(message.data)
-    return message
+    return message.data
   } catch (err) {
     console.log(err)
   }

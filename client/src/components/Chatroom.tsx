@@ -1,12 +1,14 @@
 import React, { useEffect, useState, useContext } from 'react'
+import dayjs from 'dayjs'
 import { findMessagesInChat, sendMessage } from '../axios/chatRoutes'
 import { userContext } from '../context/auth'
 
 type ChatProps = {
   chatId: any
+  chatUsername: string | undefined
 }
 
-const Chatroom = ({ chatId }: ChatProps) => {
+const Chatroom = ({ chatId, chatUsername }: ChatProps) => {
   const { userData } = useContext(userContext)
   const [messages, setMessages] = useState<Array<Object>>([])
   const [message, setMessage] = useState<string>('')
@@ -32,20 +34,34 @@ const Chatroom = ({ chatId }: ChatProps) => {
     findMessagesInChat(chatId).then((res) => {
       setMessages(res)
     })
-    console.log(userData)
   }, [chatId, userData])
 
   return (
     <div className='relative h-full'>
-      <h1 className='text-center mt-4 font-semibold text-sm'>
-        Name of person you are chatting with
-      </h1>
-      <h1>{chatId}</h1>
-      <div>
+      <h1 className='text-center mt-2 font-semibold'>{chatUsername}</h1>
+      <div className='mt-6'>
         {messages?.map((message: any) => (
-          <div>
-            <h1 className=''>{message?.message}</h1>
-            <h1 className=''>{}</h1>
+          <div
+            className={
+              userData._id === message.sender._id
+                ? `bg-indigo-500 ml-auto rounded-xl text-white mx-6 my-1 w-[200px] relative`
+                : `bg-slate-500 mr-auto rounded-xl text-white mx-6 my-1 w-[200px] relative`
+            }
+          >
+            <div className='flex'>
+              <img
+                src={message.sender.profilePic}
+                className='w-[20px] h-[20px] m-2'
+                alt='profile pic of message sender'
+              />
+              <h1 className='my-2 font-semibold text-sm'>
+                {message.sender.userName}
+              </h1>
+            </div>
+            <div className='absolute top-2 right-3 opacity-70 font-semibold text-[10px]'>
+              <h1>{dayjs(message.createdAt).format(`MMMM D`)}</h1>
+            </div>
+            <p className='mx-2 pb-1 text-sm'>{message?.message}</p>
           </div>
         ))}
       </div>
@@ -57,7 +73,6 @@ const Chatroom = ({ chatId }: ChatProps) => {
           onChange={(e: any) => setMessage(e.target.value)}
           onKeyDown={handleKeyDown}
         />
-        <button onClick={sendMessageHandler}>Submit</button>
       </div>
     </div>
   )
