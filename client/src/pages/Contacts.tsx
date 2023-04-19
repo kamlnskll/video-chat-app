@@ -3,6 +3,7 @@ import Navbar from '../components/Navbar'
 import { userContext } from '../context/auth'
 import ContactCard from '../components/ContactCard'
 import ContactModal from '../components/ContactModal'
+import { AddPerson } from '../static/icons/Add'
 
 const Contacts = () => {
   const { userData, setUserData } = useContext(userContext)
@@ -24,18 +25,20 @@ const Contacts = () => {
         <Navbar />
       </div>
       <div className='mx-auto border bg-white w-[500px] h-[500px] mt-12 relative'>
-        <h1 className='text-center font-semibold text-xl mt-4'>{`Contacts (${userData?.contacts?.length})`}</h1>
-        <button
-          type='button'
+        <h1 className='text-center font-semibold text-xl mt-4'>{`Contacts`}</h1>
+        <h1 className='absolute top-16 left-8 font-bold text-xs'>
+          ({userData?.contacts?.length})
+        </h1>
+        <h1
           className={
             addContactModal
               ? `hidden`
-              : `border px-2 text-sm text-white rounded-lg font-semibold bg-orange-600 absolute top-5 right-4`
+              : `border px-2 text-sm cursor-pointer border-gray-100 text-gray-700 rounded-lg font-semibold bg-gray-100 hover:bg-gray-100 absolute top-5 right-6`
           }
           onClick={() => setAddContactModal(!addContactModal)}
         >
-          Add Contact
-        </button>
+          <AddPerson />
+        </h1>
         <div className='mt-10'>
           {userData?.contacts?.map((contact: Object) => {
             return <ContactCard contact={contact} />

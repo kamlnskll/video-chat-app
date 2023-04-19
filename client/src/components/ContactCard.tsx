@@ -13,7 +13,7 @@ const ContactCard = ({ contact }: Props) => {
 
   return (
     <div
-      className='flex p-2 mx-6 bg-gray-100 cursor-pointer rounded-xl relative'
+      className='flex p-2 mx-6 bg-gray-50 hover:bg-gray-100 cursor-pointer rounded-xl relative'
       //
     >
       <div className='absolute right-3 bottom-[15px] z-50 flex gap-4 mr-2'>
@@ -36,11 +36,14 @@ const ContactCard = ({ contact }: Props) => {
         <img
           alt='profile pic tag'
           src={contact?.profilePic}
-          className='w-[50px] h-[50px]'
+          className='ml-6 w-[40px] h-[40px]'
         />
       </div>
-      <div>
-        <h1>{contact?.userName}</h1>
+      <div className='ml-4'>
+        <h1 className='text-md font-semibold'>{contact?.userName}</h1>
+        <h1 className='text-sm'>
+          {contact?.firstName} {contact?.lastName}
+        </h1>
       </div>
     </div>
   )
