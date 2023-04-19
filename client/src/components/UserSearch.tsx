@@ -1,12 +1,22 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { addContact, removeContact, searchUsers } from '../axios/userRoutes'
 import { Add } from '../static/icons/Add'
+import { userContext } from '../context/auth'
+import { Added } from '../static/icons/Added'
+import { useNavigate } from 'react-router-dom'
 
 const UserSearch = () => {
+  const navigate = useNavigate()
   const DEBOUNCE_DELAY = 800
   const [searchTerm, setSearchTerm] = useState('')
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState('')
   const [search, setSearch] = useState([])
+  const { userData } = useContext(userContext)
+
+  useEffect(() => {
+    console.log(userData)
+    console.log(userData.contacts.includes(userData._id))
+  }, [])
 
   useEffect(() => {
     const timerId = setTimeout(() => {
@@ -30,7 +40,7 @@ const UserSearch = () => {
   }, [debouncedSearchTerm])
 
   return (
-    <div>
+    <div onClick={() => console.log(search)}>
       <input
         name='search'
         placeholder='Search'
@@ -42,15 +52,26 @@ const UserSearch = () => {
       <div>
         {search.map((user: any) => (
           <div className='border w-3/4 py-1 rounded-lg text-sm mx-auto flex relative'>
-            <h1
-              className='absolute right-3 top-2 opacity-80 hover:bg-gray-200 cursor-pointer rounded-lg p-1 text-green-600 hover:opacity-100'
-              onClick={() =>
-                // console.log(user.userName)
-                addContact(user.userName).then((res) => console.log(res))
-              }
-            >
-              <Add />
-            </h1>
+            <div className={user._id === userData._id ? `hidden` : ``}>
+              {user.contacts.includes(userData._id) ? (
+                <h1
+                  className='absolute right-3 top-2 opacity-80 hover:bg-gray-200 cursor-pointer rounded-lg p-1 text-green-600 hover:opacity-100'
+                  onClick={() => navigate(`/profile/${user.userName}`)}
+                >
+                  <Added />
+                </h1>
+              ) : (
+                <h1
+                  className='absolute right-3 top-2 opacity-80 hover:bg-gray-200 cursor-pointer rounded-lg p-1 text-blue-600 hover:opacity-100'
+                  onClick={() =>
+                    // console.log(user.userName)
+                    addContact(user.userName).then((res) => console.log(res))
+                  }
+                >
+                  <Add />
+                </h1>
+              )}
+            </div>
             <div className=''>
               <img
                 className='w-[30px] h-[30px] ml-6 mt-2'
