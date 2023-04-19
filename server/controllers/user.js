@@ -123,11 +123,11 @@ export const AddContact = async (req, res) => {
   const contact = await User.findOne({ userName: req.params.username }).select(
     '_id userName contacts'
   )
-  if (contact._id && myId && contact._id == myId) {
+  if (contact?._id && myId && contact._id == myId) {
     console.log('Cannot add yourself')
     return
   }
-  if (contact._id && myId && contact.contacts.includes(req.user)) {
+  if (contact?._id && myId && contact.contacts.includes(req.user)) {
     console.log('You are already following this person')
     return
   }
@@ -152,16 +152,16 @@ export const AddContact = async (req, res) => {
 
 export const RemoveContact = async (req, res) => {
   const myId = req.user
-  const contact = await User.findOne({ userName: req.body.username }).select(
+  const contact = await User.findOne({ userName: req.params.username }).select(
     '_id userName contacts'
   )
 
-  if (contact._id == req.user) {
+  if (contact?._id && contact._id == req.user) {
     console.log('You cannot unfollow yourself')
     return
   }
 
-  if (!contact.contacts.includes(req.user)) {
+  if (contact?._id && !contact.contacts.includes(req.user)) {
     console.log('You are already not following this account')
     return
   }
