@@ -96,13 +96,10 @@ export const addContact = async (username: string | undefined) => {
   }
 }
 
-export const removeContact = async (contact: string | undefined) => {
-  const payload = {
-    username: contact,
-  }
+export const removeContact = async (username: string | undefined) => {
   try {
     const contact = await axios
-      .post(`http://localhost:8000/api/user/removecontact`, payload)
+      .post(`http://localhost:8000/api/user/removecontact/${username}`)
       .then((res) => console.log(res))
     return contact
   } catch (err) {
