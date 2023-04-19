@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { searchUsers } from '../axios/userRoutes'
+import { addContact, removeContact, searchUsers } from '../axios/userRoutes'
 
 const UserSearch = () => {
   const DEBOUNCE_DELAY = 800
@@ -46,6 +46,10 @@ const UserSearch = () => {
                 className='w-[30px] h-[30px] ml-6 mt-2'
                 src={user?.profilePic}
                 alt={`${user?.userName}'s profile pic`}
+                onClick={() =>
+                  // console.log(user.userName)
+                  addContact(user.userName).then((res) => console.log(res))
+                }
               />
             </div>
             <div className='ml-8'>

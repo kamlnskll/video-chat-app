@@ -130,28 +130,29 @@ export const AddContact = async (req, res) => {
   }
   if (contactId && myId && contact.contacts.includes(req.user)) {
     console.log('You are already following this person')
-  } else {
-    try {
-      await User.findOneAndUpdate(
-        { _id: contactId },
-        { $push: { contacts: req.user } },
-        { new: true }
-      )
-      await User.findOneAndUpdate(
-        { _id: req.user },
-        { $push: { contacts: contactId } },
-        { new: true }.then((res) => console.log(res))
-      )
-      return res
-    } catch (err) {
-      console.log(err)
-    }
+  }
+
+  try {
+    const add = await User.findOneAndUpdate(
+      { userName: req.body.username },
+      { $push: { contacts: req.user } },
+      { new: true }
+    )
+    const add2 = await User.findOneAndUpdate(
+      { _id: req.user },
+      { $push: { contacts: contactId } },
+      { new: true }
+    )
+    console.log(contactId, contact)
+    console.log('user to add', add, 'your account', add2)
+  } catch (err) {
+    console.log(err)
   }
 }
 
 export const RemoveContact = async (req, res) => {
   const myId = req.user
-  const contact = await User.find({ userName: req.body.username }).select(
+  const contact = await User.findOne({ userName: req.body.username }).select(
     '_id userName contacts'
   )
   const contactId = contact._id
@@ -162,21 +163,21 @@ export const RemoveContact = async (req, res) => {
 
   if (!contact.contacts.includes(req.user)) {
     console.log('You are already not following this account')
-  } else {
-    try {
-      await User.findByIdAndUpdate(
-        contactId,
-        { $pull: { contacts: req.user } },
-        { new: true }
-      )
-      await User.findByIdAndUpdate(
-        req.user,
-        { $pull: { following: contactId } },
-        { new: true }
-      ).then(console.log('User unfollowed'))
-      return res
-    } catch (err) {
-      console.log(err)
-    }
+  }
+
+  try {
+    await User.findByIdAndUpdate(
+      contactId,
+      { $pull: { contacts: req.user } },
+      { new: true }
+    )
+    await User.findByIdAndUpdate(
+      req.user,
+      { $pull: { contacts: contactId } },
+      { new: true }
+    ).then(console.log('User unfollowed'))
+    return res
+  } catch (err) {
+    console.log(err)
   }
 }

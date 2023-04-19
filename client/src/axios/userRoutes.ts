@@ -85,8 +85,10 @@ export const searchUsers = async (searchTerm: string) => {
   }
 }
 
-export const addContact = async () => {
-  const payload = {}
+export const addContact = async (contact: string | undefined) => {
+  const payload = {
+    username: contact,
+  }
 
   try {
     const contact = await axios
@@ -98,8 +100,10 @@ export const addContact = async () => {
   }
 }
 
-export const removeContact = async () => {
-  const payload = {}
+export const removeContact = async (contact: string | undefined) => {
+  const payload = {
+    username: contact,
+  }
   try {
     const contact = await axios
       .post(`http://localhost:8000/api/user/removecontact`, payload)
