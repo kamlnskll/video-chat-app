@@ -24,21 +24,24 @@ const Profile = ({ isMe }: ProfileProps) => {
       <div>
         <Navbar />
       </div>
-      <div className='bg-white border rounded-lg w-[500px] h-[250px] mx-auto mt-28 pt-4'>
+      <div className='bg-white border-gray-50 shadow-sm border rounded-lg w-[500px] h-[250px] mx-auto mt-28 pt-4'>
         <h1 className='text-center font-semibold text-md'>Profile</h1>
-        <div className='flex justify-center gap-12 mt-4'>
+        <div className='flex justify-between mt-4'>
           <div className=''>
             <img
               alt='user profile pic'
-              className='w-[75px] h-[75px] rounded-full'
+              className='ml-20 w-[100px] h-[100px] rounded-full'
               src={profileData.profilePic}
             />
           </div>
-          <div className=''>
-            <h1 className='text-xl font-semibold'>{profileData.userName}</h1>
-            <h1 className='text-sm'>
-              {profileData.firstName} {profileData.lastName}
-            </h1>
+          <div className='mr-48'>
+            <div className='flex'>
+              <h1 className='text-lg font-semibold'>{profileData.userName}</h1>
+              <h1 className='text-sm mt-1 ml-4'>
+                {profileData.firstName} {profileData.lastName}
+              </h1>
+            </div>
+            <p>{profileData.bio}</p>
           </div>
         </div>
       </div>

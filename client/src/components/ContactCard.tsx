@@ -13,18 +13,18 @@ const ContactCard = ({ contact }: Props) => {
 
   return (
     <div
-      className='flex p-2 mx-6 bg-gray-50 hover:bg-gray-100 cursor-pointer rounded-xl relative'
+      className='flex p-2 mx-6 bg-gray-50 hover:bg-gray-100 rounded-xl relative'
       //
     >
       <div className='absolute right-3 bottom-[15px] z-50 flex gap-4 mr-2'>
         <div
-          className='opacity-80 hover:bg-gray-200 rounded-lg p-1 text-slate-800 hover:opacity-100'
+          className='opacity-80 hover:bg-gray-200 rounded-lg p-1 text-slate-800 hover:opacity-100 cursor-pointer'
           onClick={() => navigate(`/profile/${contact.userName}`)}
         >
           <Profile />
         </div>
         <div
-          className='opacity-80 hover:bg-gray-200 rounded-lg p-1 text-red-700 hover:opacity-100'
+          className='opacity-80 hover:bg-gray-200 rounded-lg p-1 text-red-700 hover:opacity-100  cursor-pointer'
           onClick={() => {
             removeContact(contact.userName).then((res) => console.log(res))
           }}
