@@ -84,3 +84,28 @@ export const searchUsers = async (searchTerm: string) => {
     console.error(error)
   }
 }
+
+export const addContact = async () => {
+  const payload = {}
+
+  try {
+    const contact = await axios
+      .post(`http://localhost:8000/api/user/addcontact`, payload)
+      .then((res) => console.log(res))
+    return contact
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+export const removeContact = async () => {
+  const payload = {}
+  try {
+    const contact = await axios
+      .post(`http://localhost:8000/api/user/removecontact`, payload)
+      .then((res) => console.log(res))
+    return contact
+  } catch (err) {
+    console.log(err)
+  }
+}
