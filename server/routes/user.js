@@ -20,7 +20,7 @@ router.use(requireLogin)
 router.get('/fetchprofile/:userName', fetchProfile)
 router.get('/fetchuserdata', fetchUserData)
 router.post('/search', searchUsers)
-router.post('/addcontact', AddContact)
-router.post('/removecontact', RemoveContact)
+router.post('/addcontact/:username', AddContact)
+router.post('/removecontact/:username', RemoveContact)
 
 export default router

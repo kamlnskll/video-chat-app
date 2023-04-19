@@ -85,15 +85,11 @@ export const searchUsers = async (searchTerm: string) => {
   }
 }
 
-export const addContact = async (contact: string | undefined) => {
-  const payload = {
-    username: contact,
-  }
-
+export const addContact = async (username: string | undefined) => {
   try {
     const contact = await axios
-      .post(`http://localhost:8000/api/user/addcontact`, payload)
-      .then((res) => console.log(res))
+      .post(`http://localhost:8000/api/user/addcontact/${username}`)
+      .then((res) => console.log('addcontact', res))
     return contact
   } catch (err) {
     console.log(err)

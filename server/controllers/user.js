@@ -120,31 +120,31 @@ export const searchUsers = async (req, res) => {
 
 export const AddContact = async (req, res) => {
   const myId = req.user
-  const contact = await User.find({ userName: req.body.username }).select(
+  const contact = await User.findOne({ userName: req.params.username }).select(
     '_id userName contacts'
   )
-  const contactId = contact._id
-
-  if (contactId && myId && contactId == myId) {
+  if (contact._id && myId && contact._id == myId) {
     console.log('Cannot add yourself')
+    return
   }
-  if (contactId && myId && contact.contacts.includes(req.user)) {
+  if (contact._id && myId && contact.contacts.includes(req.user)) {
     console.log('You are already following this person')
+    return
   }
 
   try {
-    const add = await User.findOneAndUpdate(
-      { userName: req.body.username },
-      { $push: { contacts: req.user } },
+    const add = await User.findByIdAndUpdate(
+      contact._id,
+      { $push: { contacts: myId } },
       { new: true }
     )
-    const add2 = await User.findOneAndUpdate(
-      { _id: req.user },
-      { $push: { contacts: contactId } },
+    const add2 = await User.findByIdAndUpdate(
+      myId,
+      { $push: { contacts: contact._id } },
       { new: true }
     )
-    console.log(contactId, contact)
-    console.log('user to add', add, 'your account', add2)
+    // console.log('contact', contact._id)
+    // console.log('user to add', add, 'your account', add2)
   } catch (err) {
     console.log(err)
   }
@@ -155,25 +155,26 @@ export const RemoveContact = async (req, res) => {
   const contact = await User.findOne({ userName: req.body.username }).select(
     '_id userName contacts'
   )
-  const contactId = contact._id
 
-  if (contactId == req.user) {
+  if (contact._id == req.user) {
     console.log('You cannot unfollow yourself')
+    return
   }
 
   if (!contact.contacts.includes(req.user)) {
     console.log('You are already not following this account')
+    return
   }
 
   try {
     await User.findByIdAndUpdate(
-      contactId,
+      contact._id,
       { $pull: { contacts: req.user } },
       { new: true }
     )
     await User.findByIdAndUpdate(
       req.user,
-      { $pull: { contacts: contactId } },
+      { $pull: { contacts: contact._id } },
       { new: true }
     ).then(console.log('User unfollowed'))
     return res
