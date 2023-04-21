@@ -1,16 +1,19 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import Navbar from '../components/Navbar'
 import { Back } from '../static/icons/Back'
+import AccountEdit from '../components/AccountEdit'
+import { userContext } from '../context/auth'
 
 const Settings = () => {
   const [window, setWindow] = useState('')
+  const { userData } = useContext(userContext)
 
   return (
     <div>
       <div>
         <Navbar />
       </div>
-      <div className='bg-white border-gray-50 shadow-sm border rounded-lg w-[500px] h-[400px] mx-auto mt-28 pt-4 relative'>
+      <div className='bg-white border-gray-50 shadow-sm border rounded-lg w-[500px] h-[450px] mx-auto mt-28 pt-4 relative'>
         <div className={window ? `absolute w-full h-full bg-white` : `hidden`}>
           <h1
             className='cursor-pointer absolute top-0 left-4 hover:bg-gray-100 hover:rounded-full px-1'
@@ -19,6 +22,12 @@ const Settings = () => {
             <Back />
           </h1>
           <h1 className='text-center'>{window}</h1>
+          <div className={window === 'Edit Account' ? `` : `hidden`}>
+            <AccountEdit user={userData} />
+          </div>
+          <div className={window === 'Preferences' ? `` : `hidden`}>
+            <h1>Hi Preferences</h1>
+          </div>
         </div>
         <h1 className='text-center text-lg font-semibold'>Settings</h1>
         <div className='text-center mt-4 rounded-lg text-sm'>

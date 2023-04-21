@@ -182,3 +182,7 @@ export const RemoveContact = async (req, res) => {
     console.log(err)
   }
 }
+
+export const editAccount = async (req, res) => {
+  const user = User.findByIdAndUpdate(req.user)
+}
