@@ -23,6 +23,6 @@ router.get('/fetchuserdata', fetchUserData)
 router.post('/search', searchUsers)
 router.post('/addcontact/:username', AddContact)
 router.post('/removecontact/:username', RemoveContact)
-router.put('/editaccount/:username', editAccount)
+router.put('/editaccount', editAccount)
 
 export default router

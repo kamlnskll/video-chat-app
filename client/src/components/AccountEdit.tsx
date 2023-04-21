@@ -19,30 +19,30 @@ const AccountEdit = ({ user }: Props) => {
         </button>
       </div>
       <div className='mt-2'>
-        <h1 className='text-sm font-semibold'>Username</h1>
+        <h1 className='text-xs font-semibold'>Username</h1>
         <input
-          className='flex w-[220px] h-[40px] outline-none border-gray-100 border bg-gray-100 rounded-lg text-xs placeholder:font-semibold pl-6'
+          className='flex w-[220px] h-[40px] outline-none border-gray-100 border bg-gray-100 rounded-lg text-xs placeholder:font-semibold pl-2'
           placeholder={user.userName}
         />
       </div>
       <div className='mt-4'>
-        <h1 className='text-sm font-semibold'>First Name</h1>
+        <h1 className='text-xs font-semibold'>First Name</h1>
         <input
-          className='flex w-[220px] h-[40px] outline-none border-gray-100 border bg-gray-100 rounded-lg text-xs placeholder:font-semibold pl-6'
+          className='flex w-[220px] h-[40px] outline-none border-gray-100 border bg-gray-100 rounded-lg text-xs placeholder:font-semibold pl-2'
           placeholder={user.firstName}
         />
       </div>
       <div className='mt-4'>
-        <h1 className='text-sm font-semibold'>Last Name</h1>
+        <h1 className='text-xs font-semibold'>Last Name</h1>
         <input
-          className='flex w-[220px] h-[40px] outline-none border-gray-100 border bg-gray-100 rounded-lg text-xs placeholder:font-semibold pl-6'
+          className='flex w-[220px] h-[40px] outline-none border-gray-100 border bg-gray-100 rounded-lg text-xs placeholder:font-semibold pl-2'
           placeholder={user.lastName}
         />
       </div>
       <div className='mt-2'>
-        <h1 className='text-sm font-semibold'>Bio</h1>
+        <h1 className='text-xs font-semibold'>Bio</h1>
         <textarea
-          className='flex w-[220px] h-[100px] outline-none border-gray-100 border bg-gray-100 rounded-lg text-xs placeholder:font-semibold pl-6'
+          className='flex w-[220px] h-[100px] outline-none border-gray-100 border bg-gray-100 rounded-lg text-xs placeholder:font-semibold pl-2 pt-1'
           placeholder={user.bio}
         />
         <h1 className='text-xs ml-48 mt-1'>{}/150</h1>

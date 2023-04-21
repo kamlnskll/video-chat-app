@@ -106,3 +106,28 @@ export const removeContact = async (username: string | undefined) => {
     console.log(err)
   }
 }
+
+export const updateUser = async (
+  firstName: any,
+  lastName: any,
+  userName: any,
+  bio: any
+) => {
+  try {
+    const data = {
+      firstName: firstName,
+      lastName: lastName,
+      userName: userName,
+      bio: bio,
+    }
+
+    const updatedUser = await axios.put(
+      `http://localhost:8000/api/user/editaccount`,
+      data
+    )
+
+    return updatedUser.data
+  } catch (err) {
+    console.log(err)
+  }
+}
