@@ -3,10 +3,26 @@ import Navbar from '../components/Navbar'
 import { Back } from '../static/icons/Back'
 import AccountEdit from '../components/AccountEdit'
 import { userContext } from '../context/auth'
+import { Moon, Sun } from '../static/icons/Lightmode'
+import { DarkModeContext } from '../context/DarkModeContext'
+import { useDarkMode } from '../hooks/useDarkMode'
 
 const Settings = () => {
   const [window, setWindow] = useState('')
   const { userData } = useContext(userContext)
+  // @ts-ignore
+  // const { darkMode, toggleDarkMode } = useContext(DarkModeContext)
+
+  const [themeColor, setTheme] = useDarkMode()
+
+  const [darkMode, setDarkMode] = useState(
+    themeColor === 'light' ? true : false
+  )
+
+  const toggleDarkMode = (checked: any) => {
+    // @ts-ignore
+    setTheme(themeColor)
+  }
 
   return (
     <div>
@@ -26,7 +42,17 @@ const Settings = () => {
             <AccountEdit user={userData} />
           </div>
           <div className={window === 'Preferences' ? `` : `hidden`}>
-            <h1>Hi Preferences</h1>
+            <div>
+              <h1>Hi Preferences</h1>
+              <div className='flex text-md'>
+                <div></div>
+                <h1 onClick={toggleDarkMode}>
+                  {darkMode ? 'Toggle Light mode' : 'Toggle Night mode'}
+                </h1>
+                {darkMode ? <Moon /> : <Sun />}
+              </div>
+              <h1 onClick={() => console.log(darkMode)}>Test</h1>
+            </div>
           </div>
         </div>
         <h1 className='text-center text-lg font-semibold'>Settings</h1>
