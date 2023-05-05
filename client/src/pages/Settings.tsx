@@ -10,8 +10,6 @@ import { useDarkMode } from '../hooks/useDarkMode'
 const Settings = () => {
   const [window, setWindow] = useState('')
   const { userData } = useContext(userContext)
-  // @ts-ignore
-  // const { darkMode, toggleDarkMode } = useContext(DarkModeContext)
 
   const [themeColor, setTheme] = useDarkMode()
 
@@ -19,9 +17,10 @@ const Settings = () => {
     themeColor === 'light' ? true : false
   )
 
-  const toggleDarkMode = (checked: any) => {
+  const toggleDarkMode = (checked: boolean) => {
     // @ts-ignore
     setTheme(themeColor)
+    setDarkMode(checked)
   }
 
   return (
@@ -43,15 +42,21 @@ const Settings = () => {
           </div>
           <div className={window === 'Preferences' ? `` : `hidden`}>
             <div>
-              <h1>Hi Preferences</h1>
-              <div className='flex text-md'>
-                <div></div>
-                <h1 onClick={toggleDarkMode}>
+              <div
+                className={`flex text-sm w-[240px] mt-12 mx-auto justify-evenly ${
+                  darkMode
+                    ? 'text-white bg-slate-500 hover:bg-slate-600'
+                    : 'bg-gray-200 hover:bg-gray-300'
+                } h-[40px] rounded-lg  cursor-pointer`}
+              >
+                <h1
+                  onClick={() => toggleDarkMode(!darkMode)}
+                  className='my-auto'
+                >
                   {darkMode ? 'Toggle Light mode' : 'Toggle Night mode'}
                 </h1>
-                {darkMode ? <Moon /> : <Sun />}
+                <div className='my-auto'>{darkMode ? <Sun /> : <Moon />}</div>
               </div>
-              <h1 onClick={() => console.log(darkMode)}>Test</h1>
             </div>
           </div>
         </div>
