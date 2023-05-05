@@ -194,3 +194,7 @@ export const editAccount = async (req, res) => {
     console.log(err)
   }
 }
+
+export const startNewChatWithContact = async (req, res) => {
+  const contacts = ''
+}

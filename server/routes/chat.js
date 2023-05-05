@@ -12,7 +12,7 @@ const router = express.Router()
 router.use(cors())
 
 router.use(requireLogin)
-router.post('/createchat', createNewChat)
+router.post('/newchat', createNewChat)
 router.get('/getchats', fetchExistingChats)
 router.get('/getmessages/:chatId', fetchMessagesInChat)
 router.post('/sendmessage', createNewMessage)
