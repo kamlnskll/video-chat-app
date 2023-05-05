@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react'
 import { userContext } from '../context/auth'
 import { Add } from '../static/icons/Add'
+import { createNewChat } from '../axios/chatRoutes'
 
 type ModalProps = {
   isOpen: boolean
@@ -41,7 +42,10 @@ const ChatModal = ({ isOpen, toggleModal }: ModalProps) => {
                   />
                   <h1 className='my-1 ml-2'>{contact.userName}</h1>
                 </div>
-                <div className='scale-75 cursor-pointer text-emerald-600 hover:text-emerald-700'>
+                <div
+                  className='scale-75 cursor-pointer text-emerald-600 hover:text-emerald-700'
+                  onClick={() => createNewChat(userData._id, contact._id)}
+                >
                   <Add />
                 </div>
               </div>
