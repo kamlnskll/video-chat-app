@@ -184,18 +184,12 @@ export const RemoveContact = async (req, res) => {
 }
 
 export const editAccount = async (req, res) => {
+  const userId = req.user
+  const userData = req.body
+
   try {
-    const { firstName, lastName, userName, bio } = req.body
-
-    const data = {
-      firstName,
-      lastName,
-      userName,
-      bio,
-    }
-
-    const updatedUser = User.findByIdAndUpdate(req.user, data, { new: true })
-    return res.json(updatedUser)
+    const updatedUser = await User.findByIdAndUpdate(userId, userData)
+    res.json(updatedUser)
   } catch (err) {
     console.log(err)
   }
