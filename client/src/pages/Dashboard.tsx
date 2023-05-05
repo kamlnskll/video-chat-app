@@ -6,6 +6,9 @@ import Calendar from 'react-calendar'
 import { useNavigate } from 'react-router-dom'
 import { v4 as uuid } from 'uuid'
 import CreateRoom from '../components/CreateRoom'
+import { New } from '../static/icons/New'
+import { Call } from '../static/icons/Call'
+import { CalendarIcon } from '../static/icons/Calendar'
 
 const Dashboard = () => {
   const time = dayjs().format('hh:mm')
@@ -31,31 +34,34 @@ const Dashboard = () => {
           />
         </div>
         <div className='grid grid-cols-2 grid-rows-2 bg-gray-100 rounded-lg'>
-          <div className='col-span-1 row-span-1 bg-orange-400 m-2 rounded-xl border border-slate-400 cursor-pointer hover:bg-orange-500'>
-            <svg />
-            <CreateRoom />
-            {/* <h1 className='w-full text-white text-center font-bold text-xl'></h1> */}
+          <div className='bg-orange-400 m-2 rounded-xl border border-slate-400 cursor-pointer hover:bg-orange-500 relative'>
+            <div className='text-white text-center font-bold text-xl absolute top-1/3 left-1/3'>
+              <New />
+              <CreateRoom />
+            </div>
           </div>
           <div
-            className='col-span-1 row-span-1 hover:bg-blue-700 bg-blue-600 m-2 rounded-xl border border-slate-400 cursor-pointer'
+            className='col-span-1 row-span-1 hover:bg-blue-700 bg-blue-600 m-2 rounded-xl border border-slate-400 cursor-pointer relative'
             onClick={() => {
               setToggleJoinCall(!toggleJoinCall)
             }}
           >
-            <svg />
-            <h1 className='text-white text-center font-bold text-xl'>
-              Join a call
-            </h1>
+            <div className='text-white text-center font-semibold text-xl absolute top-1/3 left-1/3'>
+              <Call />
+              <h1>Join a call</h1>
+            </div>
+          </div>
+          <div className='col-span-1 row-span-1 hover:bg-blue-700 bg-blue-600 m-2 rounded-xl border border-slate-400 relative'>
+            <div className='text-white text-center font-semibold text-xl absolute top-1/3 left-1/3'>
+              <CalendarIcon />
+              <h1>Calendar</h1>
+            </div>
           </div>
           <div className='col-span-1 row-span-1 hover:bg-blue-700 bg-blue-600 m-2 rounded-xl border border-slate-400'>
             <svg />
-            <h1 className='text-white text-center font-bold text-xl'>
-              Calender
+            <h1 className='text-white text-center font-semibold text-xl'>
+              Test
             </h1>
-          </div>
-          <div className='col-span-1 row-span-1 hover:bg-blue-700 bg-blue-600 m-2 rounded-xl border border-slate-400'>
-            <svg />
-            <h1 className='text-white text-center font-bold text-xl'>Test</h1>
           </div>
         </div>
         <div className='bg-gray-100 rounded-lg'>

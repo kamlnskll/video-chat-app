@@ -12,7 +12,7 @@ const CreateRoom = () => {
     <button
       type='button'
       onClick={createRoom}
-      className='text-white font-bold text-xl'
+      className='text-white font-semibold text-xl'
     >
       Start new meeting
     </button>
