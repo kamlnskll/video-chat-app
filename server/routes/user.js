@@ -3,6 +3,7 @@ import cors from 'cors'
 import {
   AddContact,
   RemoveContact,
+  editAccount,
   fetchProfile,
   fetchUserData,
   loginUser,
@@ -22,5 +23,6 @@ router.get('/fetchuserdata', fetchUserData)
 router.post('/search', searchUsers)
 router.post('/addcontact/:username', AddContact)
 router.post('/removecontact/:username', RemoveContact)
+router.put('/editaccount', editAccount)
 
 export default router

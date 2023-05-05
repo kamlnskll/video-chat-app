@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useContext } from 'react'
 import {
   BrowserRouter,
   Routes,
@@ -16,12 +16,15 @@ import Settings from './pages/Settings'
 import { useUserContext } from './hooks/useUserContext'
 import Room from './pages/Room'
 import { fetchUserData } from './axios/userRoutes'
+import { DarkModeContext } from './context/DarkModeContext'
 
 function App() {
   const { user } = useUserContext()
+  // @ts-ignore
+  const { darkMode } = useContext(DarkModeContext)
 
   return (
-    <div>
+    <div className={`${darkMode ? 'dark' : ''}`}>
       <Routes>
         <Route
           path='/login'
