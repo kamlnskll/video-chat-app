@@ -43,8 +43,16 @@ const Login = () => {
                 type='button'
                 className='font-bold py-1 bg-blue-700 hover:bg-blue-800 mx-auto rounded-lg text-white w-1/2 ml-28 border text-center'
                 onClick={() => {
-                  loginUser(userName, password).then((res) => setUserData(res))
-                  dispatch({ type: 'LOGIN', payload: token })
+                  loginUser(userName, password)
+                    .then((res) => {
+                      setUserData(res)
+                      dispatch({ type: 'LOGIN', payload: token })
+                      window.location.reload() // Refresh the page
+                    })
+                    .catch((error) => {
+                      console.error(error)
+                      // Handle error here
+                    })
                 }}
               >
                 Login
