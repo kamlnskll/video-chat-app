@@ -30,6 +30,7 @@ const CallMenu = ({
     socket,
     openChatToggle,
     setOpenChatToggle,
+    toggleCam,
   } = useContext(RoomContext)
   const navigate = useNavigate()
 
@@ -46,13 +47,7 @@ const CallMenu = ({
           {micOn ? <MicOn /> : <MicOff />}
           <h1>Mute</h1>
         </div>
-        <div
-          onClick={() => {
-            setVideoOn(!videoOn)
-            console.log(videoOn)
-          }}
-          className='cursor-pointer'
-        >
+        <div onClick={toggleCam} className='cursor-pointer'>
           {videoOn ? <VideoOn /> : <VideoOff />}
           <h1>Stop Video</h1>
         </div>

@@ -63,6 +63,12 @@ io.on('connection', (socket) => {
     console.log('leave_call triggered', data)
   })
 
+  socket.on('hide-cam', (targetId) => {
+    // Io emits directly to an individual socket.
+    // ID = 'whose camera am i turning off'
+    io.to(targetId).emit('hide-cam')
+  })
+
   socket.on('send_message', (data) => {
     socket.to(data.roomId).emit('receive_message', data)
     console.log('sent data to room on serverside', data)

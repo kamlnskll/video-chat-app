@@ -22,6 +22,13 @@ export const RoomProvider = ({ children }: Props) => {
   const [videoOn, setVideoOn] = useState<boolean>(true)
   const [openChatToggle, setOpenChatToggle] = useState<boolean>(false)
 
+  const toggleCam = async () => {
+    const video = stream?.getTracks().find((track) => track.kind === 'video')
+    if (video) {
+      video.enabled = videoOn
+    }
+  }
+
   const enterRoom = ({ roomId }: { roomId: 'string' }) => {
     console.log({ roomId })
     navigate(`/call/${roomId}`)
@@ -34,6 +41,11 @@ export const RoomProvider = ({ children }: Props) => {
   const removePeer = (peerId: string) => {
     dispatch(removePeerAction(peerId))
   }
+
+  // useEffect(() => {
+  //   toggleCam()
+  //   console.log('video on fired', videoOn)
+  // }, [videoOn])
 
   useEffect(() => {
     const myId = uuidV4()
@@ -86,6 +98,7 @@ export const RoomProvider = ({ children }: Props) => {
         setVideoOn,
         setOpenChatToggle,
         openChatToggle,
+        toggleCam,
       }}
     >
       {children}
