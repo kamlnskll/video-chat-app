@@ -69,11 +69,15 @@ const Register = () => {
               onClick={() => {
                 console.log(firstName, lastName, userName, email, password)
                 registerNewUser(firstName, lastName, userName, email, password)
-                setFirstName('')
-                setLastName('')
-                setUserName('')
-                setEmail('')
-                setPassword('')
+                  .then((res) => {
+                    setFirstName('')
+                    setLastName('')
+                    setUserName('')
+                    setEmail('')
+                    setPassword('')
+                    window.location.reload()
+                  })
+                  .catch((err) => console.log(err))
               }}
             >
               Register

@@ -51,7 +51,7 @@ export const registerNewUser = async (req, res) => {
     throw new Error('Could not create user')
   }
 
-  res.json({ message: 'New user successfully registered' })
+  // res.json({ message: 'New user successfully registered' })
 }
 
 // Login existing user
