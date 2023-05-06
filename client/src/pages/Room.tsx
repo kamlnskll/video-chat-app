@@ -40,7 +40,7 @@ const Room = () => {
         <h1>Room ID: {callId}</h1>
       </div>
       <div
-        className='bg-black h-screen grid grid-cols-3 p-4'
+        className='bg-black h-screen grid grid-cols-3 p-4 gap-8'
         id='video-container'
       >
         <div className='col-span-1 row-span-1 relative'>
