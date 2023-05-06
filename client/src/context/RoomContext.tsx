@@ -25,7 +25,8 @@ export const RoomProvider = ({ children }: Props) => {
   const toggleCam = async () => {
     const video = stream?.getTracks().find((track) => track.kind === 'video')
     if (video) {
-      video.enabled = videoOn
+      setVideoOn(!videoOn)
+      video.enabled = !videoOn
     }
   }
 
@@ -41,11 +42,6 @@ export const RoomProvider = ({ children }: Props) => {
   const removePeer = (peerId: string) => {
     dispatch(removePeerAction(peerId))
   }
-
-  // useEffect(() => {
-  //   toggleCam()
-  //   console.log('video on fired', videoOn)
-  // }, [videoOn])
 
   useEffect(() => {
     const myId = uuidV4()
