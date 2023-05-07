@@ -20,8 +20,8 @@ const Room = () => {
 
   useEffect(() => {
     if (me) socket.emit('join-room', { roomId: callId, peerId: me._id })
-    console.log('socket', socket)
-    console.log('me', me)
+    // console.log('socket', socket)
+    // console.log('me', me)
   }, [])
 
   return (
