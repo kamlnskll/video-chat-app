@@ -22,28 +22,18 @@ export const RoomProvider = ({ children }: Props) => {
   const [videoOn, setVideoOn] = useState<boolean>(true)
   const [openChatToggle, setOpenChatToggle] = useState<boolean>(false)
 
-  // const toggleCam = async () => {
-  //   const video = stream?.getTracks().find((track) => track.kind === 'video')
-  //   if (video) {
-  //     setVideoOn(!videoOn)
-  //     video.enabled = !videoOn
-  //     socket.emit('toggle-cam', { videoOn: videoOn }) // emit message to server
-  //   }
-
-  // const video = stream?.getTracks().find((track) => track.kind === 'video')
-  // if (video) {
-  //   setVideoOn(!videoOn)
-  //   video.enabled = !videoOn
-  // }
-  // }
-
-  const toggleCam = () => {
+  const toggleCam = (roomId: any) => {
     const tracks = stream?.getVideoTracks()
+    //@ts-ignore
+    const myId = me?._id
     if (tracks) {
       tracks.forEach((track) => {
         track.enabled = !track.enabled
+        console.log(track)
       })
-      socket.emit('toggle-camera', !tracks[0].enabled)
+      console.log('tracks', tracks, 'me', myId)
+      console.log('peers', peers)
+      socket.emit('toggle-camera', !tracks[0].enabled, roomId, myId)
     }
   }
 
@@ -74,6 +64,10 @@ export const RoomProvider = ({ children }: Props) => {
     } catch (err) {
       console.error(err)
     }
+
+    socket.on('toggle-camera', (data) => {
+      console.log('target Id of camera toggler', data.targetId)
+    })
 
     socket.on('room-created', enterRoom)
     socket.on('get-users', getUsers)

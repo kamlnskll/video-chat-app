@@ -47,7 +47,7 @@ const CallMenu = ({
           {micOn ? <MicOn /> : <MicOff />}
           <h1>Mute</h1>
         </div>
-        <div onClick={toggleCam} className='cursor-pointer'>
+        <div onClick={() => toggleCam(callId)} className='cursor-pointer'>
           {videoOn ? <VideoOn /> : <VideoOff />}
           <h1>Stop Video</h1>
         </div>
