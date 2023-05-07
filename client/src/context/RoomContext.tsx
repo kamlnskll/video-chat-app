@@ -22,11 +22,28 @@ export const RoomProvider = ({ children }: Props) => {
   const [videoOn, setVideoOn] = useState<boolean>(true)
   const [openChatToggle, setOpenChatToggle] = useState<boolean>(false)
 
-  const toggleCam = async () => {
-    const video = stream?.getTracks().find((track) => track.kind === 'video')
-    if (video) {
-      setVideoOn(!videoOn)
-      video.enabled = !videoOn
+  // const toggleCam = async () => {
+  //   const video = stream?.getTracks().find((track) => track.kind === 'video')
+  //   if (video) {
+  //     setVideoOn(!videoOn)
+  //     video.enabled = !videoOn
+  //     socket.emit('toggle-cam', { videoOn: videoOn }) // emit message to server
+  //   }
+
+  // const video = stream?.getTracks().find((track) => track.kind === 'video')
+  // if (video) {
+  //   setVideoOn(!videoOn)
+  //   video.enabled = !videoOn
+  // }
+  // }
+
+  const toggleCam = () => {
+    const tracks = stream?.getVideoTracks()
+    if (tracks) {
+      tracks.forEach((track) => {
+        track.enabled = !track.enabled
+      })
+      socket.emit('toggle-camera', !tracks[0].enabled)
     }
   }
 
@@ -50,7 +67,7 @@ export const RoomProvider = ({ children }: Props) => {
 
     try {
       navigator.mediaDevices
-        .getUserMedia({ video: videoOn, audio: micOn })
+        .getUserMedia({ video: true, audio: micOn })
         .then((stream) => {
           setStream(stream)
         })
