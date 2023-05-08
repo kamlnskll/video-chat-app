@@ -30,13 +30,15 @@ export const RoomProvider = ({ children }: Props) => {
     // If the users video is NOT in peers, it must be the user and thus they disable the video from the stream variable.
 
     const tracks = stream?.getVideoTracks()
+    const peerTrack = peers
+
     //@ts-ignore
     const myId = me?._id
 
     if (tracks) {
       tracks.forEach((track) => {
         track.enabled = !track.enabled
-        console.log(track)
+        // console.log(track)
       })
       console.log('tracks', tracks, 'me', myId)
       console.log('peers', peers)
@@ -73,7 +75,12 @@ export const RoomProvider = ({ children }: Props) => {
     }
 
     socket.on('toggle-camera', (data) => {
-      console.log('target Id of camera toggler', data.targetId)
+      const targetPeerId = data.targetId
+      const stringId = JSON.stringify(targetPeerId)
+
+      if (peers && peers) {
+        console.log('yes it is here')
+      }
     })
 
     socket.on('room-created', enterRoom)
