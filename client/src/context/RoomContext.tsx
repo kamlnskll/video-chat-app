@@ -78,6 +78,9 @@ export const RoomProvider = ({ children }: Props) => {
       const targetPeerId = data.targetId
       const stringId = JSON.stringify(targetPeerId)
 
+      // Trying to make it so that if peers exists and if the peers.targetPeerId exists (which it does in the console.log)
+      // Then we will access the mediastream in that object and turn it off aka disable video of other streams.
+
       if (peers && peers) {
         console.log('yes it is here')
       }
