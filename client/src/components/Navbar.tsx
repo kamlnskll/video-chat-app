@@ -23,8 +23,8 @@ const Navbar = () => {
   }, [])
 
   return (
-    <div className='bg-gray-100 py-4 border-b relative text-xs dark:bg-slate-900'>
-      <div className='text-center font-semibold text-slate-800 space-x-16'>
+    <div className='bg-gray-100 py-4 border-b relative text-xs dark:bg-slate-800'>
+      <div className='text-center text-slate-800 dark:text-white space-x-16'>
         <Link to={'/'} type='button' className='hover:text-blue-700'>
           <div>
             <Home />

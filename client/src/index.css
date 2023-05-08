@@ -12,6 +12,10 @@ body {
   background-image: url('/src/static/bgImg.svg');
 }
 
+.dark body {
+  background-image: url('/src/static/bgImg_dark.svg');
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;

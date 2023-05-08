@@ -33,7 +33,7 @@ const Dashboard = () => {
             toggleFunction={handleJoinCallModalToggle}
           />
         </div>
-        <div className='grid grid-cols-2 grid-rows-2 bg-gray-100 rounded-lg'>
+        <div className='grid grid-cols-2 grid-rows-2 bg-gray-100 dark:bg-slate-800 dark:text-white rounded-lg'>
           <div className='bg-orange-400 m-2 rounded-xl border border-slate-400 cursor-pointer hover:bg-orange-500 relative'>
             <div className='text-white text-center font-bold text-xl absolute top-1/3 left-1/3'>
               <New />
@@ -64,7 +64,7 @@ const Dashboard = () => {
             </h1>
           </div>
         </div>
-        <div className='bg-gray-100 rounded-lg'>
+        <div className='bg-gray-100 rounded-lg dark:bg-slate-800 dark:text-white'>
           <div>
             <div className='relative'>
               <img
@@ -75,8 +75,10 @@ const Dashboard = () => {
                 className='w-full h-[275px] object-contain'
               />
               <div className='absolute top-1/3 left-1/3'>
-                <h1 className='text-5xl text-center'>{time}</h1>
-                <h1 className='mt-8 text-center font-medium'>{date}</h1>
+                <h1 className='text-5xl text-center dark:text-black'>{time}</h1>
+                <h1 className='mt-8 text-center font-medium dark:text-black'>
+                  {date}
+                </h1>
               </div>
             </div>
           </div>

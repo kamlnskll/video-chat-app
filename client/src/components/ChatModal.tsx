@@ -20,7 +20,7 @@ const ChatModal = ({ isOpen, toggleModal }: ModalProps) => {
   }, [])
 
   return isOpen ? (
-    <div className='w-[300px] h-[300px] bg-gray-100 rounded-xl relative'>
+    <div className='w-[300px] h-[300px] bg-gray-100 dark:bg-slate-800 dark: text-white dark:border dark:border-white dark:border-opacity-25 rounded-xl relative'>
       <h1 className='text-center pt-2 text-sm font-semibold'>Start a chat</h1>
       <h1
         className='absolute font-bold top-1 right-3 cursor-pointer text-red-600'

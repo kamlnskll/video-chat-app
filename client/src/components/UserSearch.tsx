@@ -45,14 +45,14 @@ const UserSearch = () => {
         name='search'
         placeholder='Search'
         type='text'
-        className='flex mx-auto w-3/4 h-[50px] outline-none border-gray-100 border bg-gray-100 rounded-lg text-xs placeholder:font-semibold pl-6 mb-4 mt-6'
+        className='flex mx-auto w-3/4 h-[50px] outline-none dark:bg-slate-600 dark:text-white border-gray-100 border bg-gray-100 rounded-lg text-xs text-black placeholder:font-semibold pl-6 mb-4 mt-6'
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
       />
       <div>
         {search.map((user: any) => (
           <div className='mt-2'>
-            <div className='border border-gray-100 w-3/4 py-1 rounded-lg text-sm mx-auto flex relative'>
+            <div className='border border-gray-100 w-3/4 py-1 rounded-lg text-sm mx-auto flex relative dark:bg-slate-600'>
               <div className={user._id === userData._id ? `hidden` : ``}>
                 {user.contacts.includes(userData._id) ? (
                   <h1
