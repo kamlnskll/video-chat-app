@@ -23,9 +23,16 @@ export const RoomProvider = ({ children }: Props) => {
   const [openChatToggle, setOpenChatToggle] = useState<boolean>(false)
 
   const toggleCam = (roomId: any) => {
+    // peers variable contains an object of peerIds that each contain the stream of the peer in the stream.active area
+
+    // If user toggling video peerId is contained in peers, then active in peers is set to false
+
+    // If the users video is NOT in peers, it must be the user and thus they disable the video from the stream variable.
+
     const tracks = stream?.getVideoTracks()
     //@ts-ignore
     const myId = me?._id
+
     if (tracks) {
       tracks.forEach((track) => {
         track.enabled = !track.enabled
