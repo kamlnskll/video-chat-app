@@ -1,6 +1,7 @@
 import User from '../models/user.js'
 import bcrypt from 'bcrypt'
 import { generateJWTAccessToken } from '../utils/auth.js'
+import validator from 'validator'
 
 // Register a new user
 // Make sure all fields are full from req.body, then check to see if existing user is in DB. If not, create the new user.
