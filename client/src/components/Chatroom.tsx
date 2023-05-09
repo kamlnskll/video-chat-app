@@ -67,7 +67,7 @@ const Chatroom = ({ chatId, chatUsername }: ChatProps) => {
       </div>
       <div className=''>
         <input
-          className='border absolute py-1 rounded-md text-sm pl-2 outline-none bottom-10 left-[55px] w-[400px]'
+          className='border absolute py-2 rounded-md text-xs pl-2 outline-none bottom-10 left-[55px] w-[400px] dark:bg-slate-600 dark:border-slate-500'
           placeholder='Type message'
           value={message}
           onChange={(e: any) => setMessage(e.target.value)}

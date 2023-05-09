@@ -22,6 +22,30 @@ export const RoomProvider = ({ children }: Props) => {
   const [videoOn, setVideoOn] = useState<boolean>(true)
   const [openChatToggle, setOpenChatToggle] = useState<boolean>(false)
 
+  const toggleCam = (roomId: any) => {
+    // peers variable contains an object of peerIds that each contain the stream of the peer in the stream.active area
+
+    // If user toggling video peerId is contained in peers, then active in peers is set to false
+
+    // If the users video is NOT in peers, it must be the user and thus they disable the video from the stream variable.
+
+    const tracks = stream?.getVideoTracks()
+    const peerTrack = peers
+
+    //@ts-ignore
+    const myId = me?._id
+
+    if (tracks) {
+      tracks.forEach((track) => {
+        track.enabled = !track.enabled
+        // console.log(track)
+      })
+      console.log('tracks', tracks, 'me', myId)
+      console.log('peers', peers)
+      socket.emit('toggle-camera', !tracks[0].enabled, roomId, myId)
+    }
+  }
+
   const enterRoom = ({ roomId }: { roomId: 'string' }) => {
     console.log({ roomId })
     navigate(`/call/${roomId}`)
@@ -42,13 +66,27 @@ export const RoomProvider = ({ children }: Props) => {
 
     try {
       navigator.mediaDevices
-        .getUserMedia({ video: videoOn, audio: micOn })
+        .getUserMedia({ video: true, audio: micOn })
         .then((stream) => {
           setStream(stream)
         })
     } catch (err) {
       console.error(err)
     }
+
+    socket.on('toggle-camera', (data) => {
+      const targetPeerId = data.targetId
+      console.log(typeof targetPeerId)
+      const parsedId = JSON.parse(targetPeerId)
+
+      // Trying to make it so that if peers exists and if the peers.targetPeerId exists (which it does in the console.log)
+      // Then we will access the mediastream in that object and turn it off aka disable video of other streams.
+
+      if (peers && peers[targetPeerId]) {
+        console.log('yes it is here')
+        console.log(peers[targetPeerId])
+      }
+    })
 
     socket.on('room-created', enterRoom)
     socket.on('get-users', getUsers)
@@ -86,6 +124,7 @@ export const RoomProvider = ({ children }: Props) => {
         setVideoOn,
         setOpenChatToggle,
         openChatToggle,
+        toggleCam,
       }}
     >
       {children}

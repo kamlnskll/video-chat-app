@@ -63,6 +63,20 @@ io.on('connection', (socket) => {
     console.log('leave_call triggered', data)
   })
 
+  socket.on('toggle-camera', (isOn, roomId, targetId) => {
+    // Camera state handled here
+    // console.log(`Camera is turned ${isOn ? 'on' : 'off'}`)
+
+    // console.log('Room ID that is being sent', roomId)
+
+    // console.log('peer id of sender', targetId)
+
+    // TargetId is peerId of person turning off camera
+    // This id will be emitted to everyone else, and it will disable the media stream.
+
+    io.to(roomId).emit('toggle-camera', { targetId, isOn })
+  })
+
   socket.on('send_message', (data) => {
     socket.to(data.roomId).emit('receive_message', data)
     console.log('sent data to room on serverside', data)

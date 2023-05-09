@@ -24,7 +24,7 @@ const Contacts = () => {
       <div>
         <Navbar />
       </div>
-      <div className='mx-auto border bg-white w-[500px] h-[500px] mt-12 relative'>
+      <div className='mx-auto border bg-white w-[500px] h-[500px] mt-12 relative dark:bg-slate-800 dark:text-white'>
         <h1 className='text-center font-semibold text-xl mt-4'>{`Contacts`}</h1>
         <h1 className='absolute top-16 left-8 font-bold text-xs'>
           ({userData?.contacts?.length})

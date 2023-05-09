@@ -20,7 +20,9 @@ const AccountEdit = ({ user }: Props) => {
       <div className='absolute bottom-2 right-24'>
         <button
           type='button'
-          className='border p-1 rounded-lg text-xs bg-gray-200 hover:bg-gray-400'
+          className='border p-1 rounded-lg text-xs bg-gray-200 hover:bg-gray-400           dark:bg-slate-600
+          hover:dark:bg-slate-700
+'
           onClick={() => {
             // console.log(userData)
             updateUser(
@@ -37,7 +39,9 @@ const AccountEdit = ({ user }: Props) => {
       <div className='mt-2'>
         <h1 className='text-xs font-semibold'>Username</h1>
         <input
-          className='flex w-[220px] h-[40px] outline-none border-gray-100 border bg-gray-100 rounded-lg text-xs placeholder:font-semibold pl-2'
+          className='flex w-[220px]
+          dark:bg-slate-600
+          h-[40px] outline-none border-gray-100 border bg-gray-100 rounded-lg text-xs placeholder:font-semibold pl-2'
           value={userData.userName}
           onChange={(e) =>
             setUserData({ ...userData, userName: e.target.value })
@@ -47,7 +51,8 @@ const AccountEdit = ({ user }: Props) => {
       <div className='mt-4'>
         <h1 className='text-xs font-semibold'>First Name</h1>
         <input
-          className='flex w-[220px] h-[40px] outline-none border-gray-100 border bg-gray-100 rounded-lg text-xs placeholder:font-semibold pl-2'
+          className='flex w-[220px]           dark:bg-slate-600
+ h-[40px] outline-none border-gray-100 border bg-gray-100 rounded-lg text-xs placeholder:font-semibold pl-2'
           value={userData.firstName}
           onChange={(e) =>
             setUserData({ ...userData, firstName: e.target.value })
@@ -57,7 +62,8 @@ const AccountEdit = ({ user }: Props) => {
       <div className='mt-4'>
         <h1 className='text-xs font-semibold'>Last Name</h1>
         <input
-          className='flex w-[220px] h-[40px] outline-none border-gray-100 border bg-gray-100 rounded-lg text-xs placeholder:font-semibold pl-2'
+          className='          dark:bg-slate-600
+flex w-[220px] h-[40px] outline-none border-gray-100 border bg-gray-100 rounded-lg text-xs placeholder:font-semibold pl-2'
           value={userData.lastName}
           onChange={(e) =>
             setUserData({ ...userData, lastName: e.target.value })
@@ -67,7 +73,8 @@ const AccountEdit = ({ user }: Props) => {
       <div className='mt-2'>
         <h1 className='text-xs font-semibold'>Bio</h1>
         <textarea
-          className='flex w-[220px] h-[100px] outline-none border-gray-100 border bg-gray-100 rounded-lg text-xs placeholder:font-semibold pl-2 pt-1'
+          className='          dark:bg-slate-600
+flex w-[220px] h-[100px] outline-none border-gray-100 border bg-gray-100 rounded-lg text-xs placeholder:font-semibold pl-2 pt-1'
           value={userData.bio}
           onChange={(e) => setUserData({ ...userData, bio: e.target.value })}
         />

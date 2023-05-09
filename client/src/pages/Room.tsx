@@ -6,11 +6,13 @@ import { PeerState } from '../context/peerReducer'
 import CallMenu from '../components/CallMenu'
 import InviteModal from '../components/InviteModal'
 import RoomChat from '../components/RoomChat'
+import { userContext } from '../context/auth'
 
 const Room = () => {
   const { callId } = useParams()
   const { socket, me, stream, peers, openChatToggle } = useContext(RoomContext)
   const [openInviteModal, setOpenInviteModal] = useState(false)
+  const { userData } = useContext(userContext)
 
   const inviteModalHandler = (boolean: boolean) => {
     setOpenInviteModal(boolean)
@@ -18,8 +20,8 @@ const Room = () => {
 
   useEffect(() => {
     if (me) socket.emit('join-room', { roomId: callId, peerId: me._id })
-    console.log('socket', socket)
-    console.log('me', me)
+    // console.log('socket', socket)
+    // console.log('me', me)
   }, [])
 
   return (
@@ -38,11 +40,11 @@ const Room = () => {
         <h1>Room ID: {callId}</h1>
       </div>
       <div
-        className='bg-black h-screen grid grid-cols-3 p-4'
+        className='bg-black h-screen grid grid-cols-3 p-4 gap-8'
         id='video-container'
       >
         <div className='col-span-1 row-span-1 relative'>
-          <VideoPlayer stream={stream} />
+          <VideoPlayer stream={stream} userName={userData.userName} />
         </div>
         {Object.values(peers as PeerState).map((peer) => (
           <VideoPlayer stream={peer.stream} />

@@ -33,7 +33,7 @@ const Chat = () => {
       <div>
         <Navbar />
       </div>
-      <div className='mx-auto border-gray-50 shadow-sm border bg-white w-[700px] h-[500px] mt-12 relative rounded-xl grid grid-cols-8 grid-rows-8'>
+      <div className='mx-auto border-gray-50 shadow-sm border bg-white w-[700px] h-[500px] mt-12 relative rounded-xl grid grid-cols-8 grid-rows-8 dark:bg-slate-800 dark:text-white'>
         <div className='col-span-2 row-span-8 relative'>
           <h1 className='text-center border-r border-gray-50 text-xs font-bold mt-4 mb-6'>
             {`Current Chats`}
