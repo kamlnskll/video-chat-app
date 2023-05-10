@@ -19,7 +19,9 @@ export const registerNewUser = async (
     userName &&
     email &&
     password &&
-    validator.isEmail(email)
+    validator.isEmail(email) &&
+    validator.isLength(password, { min: 6, max: 18 }) &&
+    validator.isLength(userName, { min: 3, max: 32 })
   ) {
     try {
       await axios
