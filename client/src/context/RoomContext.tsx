@@ -30,6 +30,8 @@ export const RoomProvider = ({ children }: Props) => {
     // If the users video is NOT in peers, it must be the user and thus they disable the video from the stream variable.
 
     const tracks = stream?.getVideoTracks()
+    // const peerTracks = peers['id'].stream?.getVideoTracks()
+
     //@ts-ignore
     const myId = me?._id
 
@@ -64,7 +66,7 @@ export const RoomProvider = ({ children }: Props) => {
 
     try {
       navigator.mediaDevices
-        .getUserMedia({ video: true, audio: micOn })
+        .getUserMedia({ video: true, audio: false })
         .then((stream) => {
           setStream(stream)
         })
@@ -73,8 +75,17 @@ export const RoomProvider = ({ children }: Props) => {
     }
 
     socket.on('toggle-camera', (data) => {
+      // For some reason there is a glitch where the toggle camera only for people who join after you.
+      // Must be fixed but overall it toggles for people
+
       const targetPeerId = data.targetId
       console.log(targetPeerId)
+      const peerStreams = peers[targetPeerId]
+      const peerStreamObj = peerStreams.stream?.getVideoTracks()
+      console.log(peerStreamObj)
+      // @ts-ignore
+      if (targetPeerId !== me?._id) {
+      }
     })
 
     socket.on('room-created', enterRoom)
