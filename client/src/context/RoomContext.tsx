@@ -26,8 +26,9 @@ export const RoomProvider = ({ children }: Props) => {
     const tracks = stream?.getVideoTracks()
     //@ts-ignore
     const myId = me?._id
-    console.log(stream)
-    console.log(tracks)
+    // console.log(stream)
+    // console.log(tracks)
+    console.log(peers)
 
     if (tracks) {
       tracks.forEach((track) => {
@@ -58,7 +59,7 @@ export const RoomProvider = ({ children }: Props) => {
 
     try {
       navigator.mediaDevices
-        .getUserMedia({ video: true, audio: false })
+        .getUserMedia({ video: true, audio: true })
         .then((stream) => {
           setStream(stream)
         })
@@ -68,12 +69,20 @@ export const RoomProvider = ({ children }: Props) => {
 
     socket.on('toggle-camera', (data) => {
       // For some reason there is a glitch where the toggle camera only for people who join after you.
-      // Must be fixed but overall it toggles for people
+      // Must be fixed but overall it toggles for people.
+      // Jk it broke again
 
-      const targetPeerId = data.targetId
-      console.log(targetPeerId)
+      const targetPeerId: string = data.targetId
       const peerStreams = peers[targetPeerId]
+      console.log(peers)
       const peerStreamObj = peerStreams.stream?.getVideoTracks()
+
+      if (peerStreamObj[0]) {
+        console.log(peerStreamObj[0])
+        // peerStreamObj.forEach((track) => {
+        //   track.enabled = !track.enabled
+        // })
+      }
     })
 
     socket.on('room-created', enterRoom)
