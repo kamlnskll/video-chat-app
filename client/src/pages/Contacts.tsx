@@ -24,7 +24,7 @@ const Contacts = () => {
       <div>
         <Navbar />
       </div>
-      <div className='mx-auto border bg-white w-[500px] h-[500px] mt-12 relative dark:bg-slate-800 dark:text-white'>
+      <div className='mx-auto border bg-white w-[500px] h-[500px] mt-12 rounded-lg relative dark:bg-slate-800 dark:text-white'>
         <h1 className='text-center font-semibold text-xl mt-4'>{`Contacts`}</h1>
         <h1 className='absolute top-16 left-8 font-bold text-xs'>
           ({userData?.contacts?.length})
@@ -40,8 +40,22 @@ const Contacts = () => {
           <AddPerson />
         </h1>
         <div className='mt-10'>
+          {userData?.contacts.length === 0 ? (
+            <div>
+              <h1 className='text-sm mx-8 pt-8 w-1/2'>
+                Contacts that you add will appear here.
+                <br />
+                <br />
+                Click the button in the top right of this box to get started.
+              </h1>
+            </div>
+          ) : null}
           {userData?.contacts?.map((contact: Object) => {
-            return <ContactCard contact={contact} />
+            return (
+              <>
+                <ContactCard contact={contact} />
+              </>
+            )
           })}
         </div>
       </div>

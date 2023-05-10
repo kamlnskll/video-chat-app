@@ -24,7 +24,7 @@ const Profile = ({ isMe }: ProfileProps) => {
       <div>
         <Navbar />
       </div>
-      <div className='bg-white dark:bg-slate-800 dark:text-white border-gray-50 shadow-sm border rounded-lg w-[500px] h-[250px] mx-auto mt-28 pt-4'>
+      <div className='bg-white dark:bg-slate-800 dark:text-white shadow-sm dark:border-none border rounded-lg w-[500px] h-[250px] mx-auto mt-28 pt-4'>
         <h1 className='text-center font-semibold text-md'>Profile</h1>
         <div className='flex justify-between mt-4'>
           <div className=''>

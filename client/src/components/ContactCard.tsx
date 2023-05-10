@@ -13,7 +13,7 @@ const ContactCard = ({ contact }: Props) => {
 
   return (
     <div
-      className='flex p-2 mx-6 bg-gray-50 hover:bg-gray-100 rounded-xl relative'
+      className='flex p-2 mx-6 bg-gray-50 dark:bg-slate-600 dark:border dark:border-slate-00 hover:bg-gray-100 rounded-xl relative'
       //
     >
       <div className='absolute right-3 bottom-[15px] z-50 flex gap-4 mr-2'>
