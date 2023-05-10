@@ -12,6 +12,13 @@ type PeerAction =
         peerId: string
       }
     }
+  | {
+      type: 'UPDATE_PEER_VID'
+      payload: {
+        peerId: string
+        videoEnabled: boolean
+      }
+    }
 
 export const peerReducer = (state: PeerState, action: PeerAction) => {
   switch (action.type) {
@@ -26,6 +33,15 @@ export const peerReducer = (state: PeerState, action: PeerAction) => {
     case REMOVE_PEER:
       const { [action.payload.peerId]: deleted, ...rest } = state
       return rest
+
+    case 'UPDATE_PEER_VID':
+      return {
+        ...state,
+        [action.payload.peerId]: {
+          ...state[action.payload.peerId],
+          videoEnabled: action.payload.videoEnabled,
+        },
+      }
 
     default:
       return { ...state }

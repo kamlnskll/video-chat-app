@@ -75,20 +75,6 @@ export const RoomProvider = ({ children }: Props) => {
     socket.on('toggle-camera', (data) => {
       const targetPeerId = data.targetId
       console.log(targetPeerId)
-
-      // Trying to make it so that if peers exists and if the peers.targetPeerId exists (which it does in the console.log)
-      // Then we will access the mediastream in that object and turn it off aka disable video of other streams.
-
-      const iterate = (object: any) => {
-        Object.keys(object).forEach((key) => {
-          console.log(`key: ${key}, value: ${object[key]}`)
-        })
-      }
-
-      iterate(peers)
-
-      if (peers) {
-      }
     })
 
     socket.on('room-created', enterRoom)
