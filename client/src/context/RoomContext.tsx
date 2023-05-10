@@ -30,8 +30,6 @@ export const RoomProvider = ({ children }: Props) => {
     // If the users video is NOT in peers, it must be the user and thus they disable the video from the stream variable.
 
     const tracks = stream?.getVideoTracks()
-    const peerTrack = peers
-
     //@ts-ignore
     const myId = me?._id
 
@@ -41,7 +39,7 @@ export const RoomProvider = ({ children }: Props) => {
         // console.log(track)
       })
       console.log('tracks', tracks, 'me', myId)
-      console.log('peers', peers)
+      console.log('peers', peers, 'typeof', console.log(typeof peers))
       socket.emit('toggle-camera', !tracks[0].enabled, roomId, myId)
     }
   }
@@ -76,15 +74,20 @@ export const RoomProvider = ({ children }: Props) => {
 
     socket.on('toggle-camera', (data) => {
       const targetPeerId = data.targetId
-      console.log(typeof targetPeerId)
-      const parsedId = JSON.parse(targetPeerId)
+      console.log(targetPeerId)
 
       // Trying to make it so that if peers exists and if the peers.targetPeerId exists (which it does in the console.log)
       // Then we will access the mediastream in that object and turn it off aka disable video of other streams.
 
-      if (peers && peers[targetPeerId]) {
-        console.log('yes it is here')
-        console.log(peers[targetPeerId])
+      const iterate = (object: any) => {
+        Object.keys(object).forEach((key) => {
+          console.log(`key: ${key}, value: ${object[key]}`)
+        })
+      }
+
+      iterate(peers)
+
+      if (peers) {
       }
     })
 
